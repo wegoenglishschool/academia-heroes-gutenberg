@@ -647,9 +647,8 @@ function fbParseDoc(doc) {
   return obj;
 }
 
-// Hide loading and init app
-document.getElementById('loadingOverlay').style.display = 'none';
-if(window.initApp) window.initApp();
+// Signal Firebase is ready
+window.firebaseReady = true;
 </script>
 
 <script>
@@ -1474,6 +1473,18 @@ function playFanfare(){
     });
   }catch(e){}
 }
+
+// ════════════════════════════════
+// START THE APP — runs after ALL functions defined
+// ════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  // Hide loading overlay
+  var overlay = document.getElementById('loadingOverlay');
+  if(overlay) overlay.style.display = 'none';
+  // Start app
+  try { genBg(); } catch(e) {}
+  try { window.initApp(); } catch(e) { console.log('initApp error:', e); }
+});
 </script>
 </body>
 </html>
