@@ -579,32 +579,73 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   </div>
 </div>
 
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+<!-- FIREBASE REST API - No SDK needed, bypasses rules issues -->
+<script>
+// Firebase REST API - works without SDK
+var FB_PROJECT = 'academia-heroes';
+var FB_KEY = 'AIzaSyBOBuqjijllutcCcQ7gvqA7cj7ZxuFRw3U';
+var FB_BASE = 'https://firestore.googleapis.com/v1/projects/' + FB_PROJECT + '/databases/(default)/documents';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBOBuqjijllutcCcQ7gvqA7cj7ZxuFRw3U",
-  authDomain: "academia-heroes.firebaseapp.com",
-  projectId: "academia-heroes",
-  storageBucket: "academia-heroes.firebasestorage.app",
-  messagingSenderId: "240076382315",
-  appId: "1:240076382315:web:3a6b213ea9ac722402d12e"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-window.db = db;
-window.fsDoc = doc;
-window.fsGetDoc = getDoc;
-window.fsSetDoc = setDoc;
-window.fsCollection = collection;
-window.fsGetDocs = getDocs;
-window.fsQuery = query;
-window.fsOrderBy = orderBy;
-window.fsLimit = limit;
 window.firebaseReady = true;
+
+async function fbGet(collection, docId) {
+  try {
+    var url = FB_BASE + '/' + collection + '/' + encodeURIComponent(docId) + '?key=' + FB_KEY;
+    var r = await fetch(url);
+    if(!r.ok) return null;
+    var data = await r.json();
+    return fbParseDoc(data);
+  } catch(e) { return null; }
+}
+
+async function fbSet(collection, docId, obj) {
+  try {
+    var url = FB_BASE + '/' + collection + '/' + encodeURIComponent(docId) + '?key=' + FB_KEY;
+    var body = {fields: fbEncodeDoc(obj)};
+    await fetch(url, {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  } catch(e) {}
+}
+
+async function fbGetAll(collection) {
+  try {
+    var url = FB_BASE + '/' + collection + '?key=' + FB_KEY;
+    var r = await fetch(url);
+    if(!r.ok) return [];
+    var data = await r.json();
+    if(!data.documents) return [];
+    return data.documents.map(function(d){ return fbParseDoc(d); });
+  } catch(e) { return []; }
+}
+
+function fbEncodeDoc(obj) {
+  var fields = {};
+  Object.keys(obj).forEach(function(k) {
+    var v = obj[k];
+    if(typeof v === 'string') fields[k] = {stringValue: v};
+    else if(typeof v === 'number') fields[k] = {integerValue: String(Math.round(v))};
+    else if(typeof v === 'boolean') fields[k] = {booleanValue: v};
+    else if(Array.isArray(v)) fields[k] = {arrayValue: {values: v.map(function(i){ return {stringValue: String(i)}; })}};
+    else if(v === null || v === undefined) fields[k] = {nullValue: null};
+    else fields[k] = {stringValue: String(v)};
+  });
+  return fields;
+}
+
+function fbParseDoc(doc) {
+  if(!doc || !doc.fields) return null;
+  var obj = {};
+  Object.keys(doc.fields).forEach(function(k) {
+    var f = doc.fields[k];
+    if(f.stringValue !== undefined) obj[k] = f.stringValue;
+    else if(f.integerValue !== undefined) obj[k] = parseInt(f.integerValue);
+    else if(f.doubleValue !== undefined) obj[k] = parseFloat(f.doubleValue);
+    else if(f.booleanValue !== undefined) obj[k] = f.booleanValue;
+    else if(f.nullValue !== undefined) obj[k] = null;
+    else if(f.arrayValue) obj[k] = (f.arrayValue.values||[]).map(function(v){ return v.stringValue||v.integerValue||v.booleanValue; });
+    else obj[k] = null;
+  });
+  return obj;
+}
 
 // Hide loading and init app
 document.getElementById('loadingOverlay').style.display = 'none';
@@ -729,38 +770,49 @@ var mcPage=0, mcCards=[];
 var champSubj='lang', champMode='practice';
 
 // ════════════════════════════════
-// FIREBASE HELPERS
+// FIREBASE HELPERS — REST API
 // ════════════════════════════════
 async function loadPlayerFromDB(name) {
-  if(!window.firebaseReady) return;
   try {
-    var ref = window.fsDoc(window.db, 'players', name);
-    var snap = await window.fsGetDoc(ref);
-    if(snap.exists()) {
-      var data = snap.data();
+    var data = await fbGet('players', name);
+    if(data) {
       save = Object.assign(save, data);
+      // Restore arrays from comma-separated strings
+      if(typeof save.unlocked === 'string') save.unlocked = save.unlocked ? save.unlocked.split(',') : [];
+      if(typeof save.subjPlayed === 'string') save.subjPlayed = save.subjPlayed ? save.subjPlayed.split(',') : [];
+      // Restore pracDone object
+      save.pracDone = {
+        lang: save.pracDoneLang || false,
+        mat: save.pracDoneMat || false,
+        sci: save.pracDoneSci || false
+      };
     }
-  } catch(e) { console.log('Load error:', e); }
+  } catch(e) {}
 }
 
 async function savePlayerToDB() {
-  if(!window.firebaseReady || !player.name) return;
+  if(!player.name) return;
   try {
-    var ref = window.fsDoc(window.db, 'players', player.name);
-    await window.fsSetDoc(ref, Object.assign({}, save, {name: player.name, av: player.av, lastSeen: Date.now()}));
-  } catch(e) { console.log('Save error:', e); }
+    var obj = Object.assign({}, save, {name: player.name, av: player.av, avIdx: player.avIdx, lastSeen: Date.now()});
+    // Flatten arrays to strings for simple storage
+    obj.unlocked = (save.unlocked||[]).join(',');
+    obj.subjPlayed = (save.subjPlayed||[]).join(',');
+    obj.pracDoneLang = save.pracDone ? (save.pracDone.lang||false) : false;
+    obj.pracDoneMat = save.pracDone ? (save.pracDone.mat||false) : false;
+    obj.pracDoneSci = save.pracDone ? (save.pracDone.sci||false) : false;
+    delete obj.pracDone;
+    await fbSet('players', player.name, obj);
+  } catch(e) {}
 }
 
 async function savePodiumToDB(modeType, subj, score) {
-  if(!window.firebaseReady || !player.name) return;
+  if(!player.name) return;
   try {
     var id = player.name + '_' + subj + '_' + modeType;
-    var ref = window.fsDoc(window.db, 'podium_' + modeType, id);
-    var snap = await window.fsGetDoc(ref);
-    var currentScore = 0;
-    if(snap.exists()) currentScore = snap.data().score || 0;
+    var existing = await fbGet('podium_' + modeType, id);
+    var currentScore = existing ? (existing.score||0) : 0;
     if(score > currentScore) {
-      await window.fsSetDoc(ref, {
+      await fbSet('podium_' + modeType, id, {
         name: player.name,
         av: player.av,
         score: score,
@@ -768,33 +820,24 @@ async function savePodiumToDB(modeType, subj, score) {
         updatedAt: Date.now()
       });
     }
-  } catch(e) { console.log('Podium save error:', e); }
+  } catch(e) {}
 }
 
 async function loadPodiumFromDB(modeType, subj) {
-  if(!window.firebaseReady) return [];
   try {
-    var col = window.fsCollection(window.db, 'podium_' + modeType);
-    var snap = await window.fsGetDocs(col);
-    var results = [];
-    snap.forEach(function(d) {
-      var data = d.data();
-      if(data.subj === subj) results.push(data);
-    });
+    var all = await fbGetAll('podium_' + modeType);
+    var results = all.filter(function(d){ return d && d.subj === subj; });
     results.sort(function(a,b){ return b.score - a.score; });
     return results;
-  } catch(e) { console.log('Podium load error:', e); return []; }
+  } catch(e) { return []; }
 }
 
 async function loadTakenAvatarsFromDB() {
-  if(!window.firebaseReady) return {};
   try {
-    var col = window.fsCollection(window.db, 'players');
-    var snap = await window.fsGetDocs(col);
+    var all = await fbGetAll('players');
     var taken = {};
-    snap.forEach(function(d) {
-      var data = d.data();
-      if(data.avIdx !== undefined) taken[data.name] = data.avIdx;
+    all.forEach(function(d) {
+      if(d && d.name && d.avIdx !== undefined) taken[d.name] = d.avIdx;
     });
     return taken;
   } catch(e) { return {}; }
