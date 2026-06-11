@@ -15,6 +15,7 @@
   --lang:#ff8a65;--langD:#bf360c;
   --mat:#4fc3f7;--matD:#0277bd;
   --sci:#69f0ae;--sciD:#00695c;
+  --eng:#64b5f6;--engD:#1565c0;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;overflow:hidden;color:white;
@@ -126,6 +127,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .world-card.lang{background:linear-gradient(145deg,#4a0e00,#8d2b00);border-color:var(--lang);}
 .world-card.mat{background:linear-gradient(145deg,#003566,#01579b);border-color:var(--mat);}
 .world-card.sci{background:linear-gradient(145deg,#003320,#00695c);border-color:var(--sci);}
+.world-card.eng{background:linear-gradient(145deg,#0a1628,#1565c0);border-color:var(--eng);}
 .wc-head{padding:24px 18px 16px;text-align:center;}
 .wc-ico{font-size:56px;display:block;margin-bottom:10px;}
 .wc-title{font-family:'Courier New',Courier,monospace;font-size:clamp(11px,2.5vw,15px);font-weight:bold;color:white;line-height:1.6;margin-bottom:6px;}
@@ -281,6 +283,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .flashcard.lang{background:linear-gradient(135deg,rgba(127,29,0,.75),rgba(191,54,12,.55));border:2px solid var(--lang);}
 .flashcard.mat{background:linear-gradient(135deg,rgba(0,53,102,.75),rgba(1,87,155,.55));border:2px solid var(--mat);}
 .flashcard.sci{background:linear-gradient(135deg,rgba(0,51,32,.75),rgba(0,105,92,.55));border:2px solid var(--sci);}
+.flashcard.eng{background:linear-gradient(135deg,rgba(10,22,40,.75),rgba(21,101,192,.55));border:2px solid var(--eng);}
 .fc-num{font-family:'Courier New',monospace;font-size:9px;font-weight:bold;color:rgba(255,255,255,.3);margin-bottom:10px;}
 .fc-emoji{font-size:60px;display:block;margin-bottom:12px;animation:ePop .5s cubic-bezier(.34,1.56,.64,1);}
 @keyframes ePop{from{transform:scale(0)}to{transform:scale(1)}}
@@ -300,6 +303,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .q-prog-fill.lang{background:linear-gradient(90deg,var(--langD),var(--lang));}
 .q-prog-fill.mat{background:linear-gradient(90deg,var(--matD),var(--mat));}
 .q-prog-fill.sci{background:linear-gradient(90deg,var(--sciD),var(--sci));}
+.q-prog-fill.eng{background:linear-gradient(90deg,var(--engD),var(--eng));}
 .type-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.07);
   border:1px solid rgba(255,255,255,.15);border-radius:22px;padding:5px 12px;
   font-size:10px;font-weight:900;color:var(--cy);margin-bottom:11px;text-transform:uppercase;
@@ -670,6 +674,7 @@ var SUBJS = {
   lang:{name:'Lenguajes',icon:'📝',color:'var(--lang)',cls:'lang'},
   mat:{name:'Matematicas',icon:'🔢',color:'var(--mat)',cls:'mat'},
   sci:{name:'Ciencias',icon:'🌿',color:'var(--sci)',cls:'sci'},
+  eng:{name:'English',icon:'🇺🇸',color:'var(--eng)',cls:'eng'},
 };
 
 var LEVELS = [
@@ -754,7 +759,46 @@ sci:[
   {id:'c14',type:'mc',q:'Que fenomeno provoca el movimiento de ROTACION de la Tierra?',opts:['Las estaciones del ano','El dia y la noche','Los eclipses'],ans:1,concept:'Rotacion y Dia y Noche',emoji:'☀️',explain:'La rotacion causa el dia y la noche! La parte que da al Sol = dia. La parte en sombra = noche.',example:'Tu lado ve al Sol = dia. Se aleja = noche.'},
   {id:'c15',type:'mc',q:'Cuantas fases tiene la Luna durante su ciclo completo?',opts:['Ocho','Tres','Una'],ans:0,concept:'Fases de la Luna',emoji:'🌕',explain:'La Luna tiene 8 fases en su ciclo! Las principales: nueva, creciente, llena y menguante.',example:'8 fases completas en el ciclo lunar!'},
   {id:'c16',type:'mc',q:'Que factor provoca el cambio de clima en las estaciones del ano?',opts:['La forma de las montanas','El movimiento de TRASLACION de la Tierra','Los colores de las plantas'],ans:1,concept:'Traslacion y Estaciones',emoji:'🌍',explain:'La TRASLACION es el viaje de la Tierra alrededor del Sol! Tarda 365 dias y causa las 4 estaciones.',example:'Tierra viaja alrededor del Sol en 1 ano = 4 estaciones.'},
-]};
+eng:[
+  {id:'e1',type:'mc',q:'What country does this flag represent? 🇦🇺',opts:['Argentina','Australia','Austria','America'],ans:1,concept:'Countries of the World 🌍',emoji:'🌏',explain:'Australia is in Oceania. Its flag has the Union Jack and the Southern Cross.',example:'Australia is famous for kangaroos and the Great Barrier Reef! 🦘'},
+  {id:'e2',type:'mc',q:'What country does this flag represent? 🇧🇷',opts:['Bolivia','Belgium','Brazil','Britain'],ans:2,concept:'Countries of the World 🌍',emoji:'🌎',explain:'Brazil is the largest country in South America. Its flag is green and yellow.',example:'Brazil is famous for the Amazon rainforest and Carnival! 🎉'},
+  {id:'e3',type:'mc',q:'What country does this flag represent? 🇦🇷',opts:['Australia','Armenia','Argentina','Algeria'],ans:2,concept:'Countries of the World 🌍',emoji:'🌎',explain:'Argentina is in South America. Its flag has blue and white stripes with a sun.',example:'Argentina is famous for tango dancing and soccer! ⚽'},
+  {id:'e4',type:'fill',q:'This country is in North America and borders the USA to the north. Its flag is 🇲🇽',ans:'Mexico',altAns:['mexico','MEXICO'],concept:'Countries 🌍',emoji:'🌮',explain:'Mexico is in North America. Its capital is Mexico City! In Spanish: Ciudad de Mexico.',example:'Mexico is famous for tacos, mariachi music and ancient pyramids! 🏛️'},
+  {id:'e5',type:'mc',q:'Which country is the most populated in the world? 🇨🇳',opts:['Chile','China','Cuba','Canada'],ans:1,concept:'Countries of the World 🌍',emoji:'🐼',explain:'China is the most populated country. Its flag is red with yellow stars.',example:'China is famous for the Great Wall, pandas and kung fu! 🥋'},
+  {id:'e6',type:'mc',q:'Which of these countries is in Europe?',opts:['Brazil','India','Spain','Australia'],ans:2,concept:'Countries and Continents 🗺️',emoji:'🇪🇸',explain:'Spain is in Europe. Brazil is in South America, India in Asia, Australia in Oceania.',example:'Spain is famous for flamenco dancing, paella and Real Madrid! 💃'},
+  {id:'e7',type:'mc',q:'What continent is India in? 🇮🇳',opts:['Africa','Europe','America','Asia'],ans:3,concept:'Countries and Continents 🗺️',emoji:'🇮🇳',explain:'India is in Asia. It is the second most populated country in the world!',example:'India is famous for the Taj Mahal, curry and Bollywood movies! 🎬'},
+  {id:'e8',type:'fill',q:'Egypt 🇪🇬 is in the continent of ___.',ans:'Africa',altAns:['africa','AFRICA'],concept:'Countries and Continents 🗺️',emoji:'🇪🇬',explain:'Egypt is in Africa. It is famous for the Pyramids and the Nile River!',example:'The pyramids of Egypt are one of the Seven Wonders of the World! 🔺'},
+  {id:'e9',type:'mc',q:'Turkey 🇹🇷 is located between which two continents?',opts:['Africa and Asia','Europe and Asia','Europe and America','Asia and Oceania'],ans:1,concept:'Countries 🇹🇷',emoji:'🌉',explain:'Turkey is unique - it is located on both Europe and Asia at the same time!',example:'Istanbul is the only city in the world that sits on two continents! 🕌'},
+  {id:'e10',type:'mc',q:'Which country flag has a crescent moon and star? 🌙⭐',opts:['India','China','Turkey','Brazil'],ans:2,concept:'Countries 🇹🇷',emoji:'🌙',explain:'Turkey's flag is red with a white crescent moon and star.',example:'Turkey is famous for its amazing food, carpets and beautiful mosques! 🕌'},
+  {id:'e11',type:'mc',q:'What weather word starts with F? You cannot see far. The air looks white and thick.',opts:['Freezing','Foggy','Frosty','Fine'],ans:1,concept:'Weather Words ⛅',emoji:'🌫️',explain:'FOGGY = lots of fog near the ground. You cannot see far on a foggy day!',example:'F-O-G-G-Y. On a foggy day: "I cannot see anything!" 🌫️'},
+  {id:'e12',type:'mc',q:'There is lightning and very loud thunder. What is the weather?',opts:['Windy','Cloudy','Thunderstorm','Rainy'],ans:2,concept:'Weather Words ⛅',emoji:'⛈️',explain:'A THUNDERSTORM has thunder, lightning, strong winds and heavy rain!',example:'T-H-U-N-D-E-R-S-T-O-R-M. BOOM! Thunder. FLASH! Lightning! ⛈️'},
+  {id:'e13',type:'mc',q:'Water is falling from the sky. What is the weather?',opts:['Windy','Rainy','Foggy','Cloudy'],ans:1,concept:'Weather Words ⛅',emoji:'🌧️',explain:'RAINY = it is raining! Water falls from the clouds.',example:'R-A-I-N-Y. On a rainy day you need an umbrella! ☂️'},
+  {id:'e14',type:'mc',q:'The air is moving very fast and strong. What is the weather?',opts:['Cloudy','Foggy','Rainy','Windy'],ans:3,concept:'Weather Words ⛅',emoji:'💨',explain:'WINDY = the wind is blowing strongly. It can blow your hat away!',example:'W-I-N-D-Y. On a windy day, hold your hat! 🎩'},
+  {id:'e15',type:'mc',q:'The sky is grey and full of clouds but it is NOT raining. What is the weather?',opts:['Foggy','Thunderstorm','Cloudy','Windy'],ans:2,concept:'Weather Words ⛅',emoji:'☁️',explain:'CLOUDY = the sky is covered with clouds. It might rain later!',example:'C-L-O-U-D-Y. On a cloudy day the sky looks grey. 🌥️'},
+  {id:'e16',type:'mc',q:'Which sentence uses GOING TO correctly?',opts:['I going to play soccer.','I am going to play soccer.','I am go to play soccer.','I goes to play soccer.'],ans:1,concept:'Going To — Future 🔮',emoji:'⚽',explain:'Structure: Subject + AM/IS/ARE + GOING TO + base verb.',example:'I AM going to study. She IS going to eat. They ARE going to run! 🏃'},
+  {id:'e17',type:'mc',q:'How do you make a GOING TO question?',opts:['You are going to swim?','Are you going to swim?','Do you going to swim?','Is you going to swim?'],ans:1,concept:'Going To — Questions 🔮',emoji:'🏊',explain:'Questions: ARE/IS/AM + subject + GOING TO + verb?',example:'ARE you going to swim? IS she going to dance? ARE they going to play? 🎮'},
+  {id:'e18',type:'mc',q:'Complete: "She ___ going to visit her grandma tomorrow."',opts:['am','are','is','be'],ans:2,concept:'Going To — Future 🔮',emoji:'👵',explain:'She = IS. I am / He She It IS / You We They ARE going to...',example:'She IS going to visit grandma. He IS going to cook. ☀️'},
+  {id:'e19',type:'mc',q:'What is the negative of "I am going to watch TV"?',opts:['I am not going to watch TV.','I not going to watch TV.','I am going to not watch TV.','I dont going to watch TV.'],ans:0,concept:'Going To — Negative 🔮',emoji:'📺',explain:'Negative: Subject + AM/IS/ARE + NOT + GOING TO + verb.',example:'I am NOT going to eat junk food. She is NOT going to be late! 🚫'},
+  {id:'e20',type:'fill',q:'Complete: "___ they going to play basketball after school?"',ans:'Are',altAns:['are','ARE'],concept:'Going To — Questions 🔮',emoji:'🏀',explain:'THEY = ARE. "ARE they going to play basketball?"',example:'Are THEY going? Are WE going? Are YOU going? Always ARE with they/we/you! 🏀'},
+  {id:'e21',type:'mc',q:'What is the past tense of GO?',opts:['goed','gone','went','goes'],ans:2,concept:'Irregular Past Tense 📝',emoji:'🚶',explain:'GO → WENT. Irregular verb! Does NOT add -ed. "Yesterday I WENT to school."',example:'I GO to school every day. Yesterday I WENT to school! 🏫'},
+  {id:'e22',type:'mc',q:'What is the past tense of SEE?',opts:['seed','seen','sawed','saw'],ans:3,concept:'Irregular Past Tense 📝',emoji:'👀',explain:'SEE → SAW. Irregular verb! "Yesterday I SAW a great movie."',example:'I SEE my friends every day. Yesterday I SAW a great movie! 🎬'},
+  {id:'e23',type:'mc',q:'What is the past tense of FEEL?',opts:['feeled','felled','felt','feelt'],ans:2,concept:'Irregular Past Tense 📝',emoji:'💙',explain:'FEEL → FELT. Irregular verb! "Yesterday I FELT very happy."',example:'I FEEL great today! Yesterday I FELT sick and stayed home. 🤒'},
+  {id:'e24',type:'mc',q:'What is the past tense of SAY?',opts:['sayed','said','sied','says'],ans:1,concept:'Irregular Past Tense 📝',emoji:'💬',explain:'SAY → SAID. Irregular verb! "She SAID hello to me."',example:'He SAYS goodbye every day. Yesterday he SAID "thank you" to his teacher! 😊'},
+  {id:'e25',type:'mc',q:'What is the past tense of WAKE UP?',opts:['wake uped','waked up','woken up','woke up'],ans:3,concept:'Irregular Past Tense 📝',emoji:'⏰',explain:'WAKE UP → WOKE UP. Irregular verb! "I WOKE UP early this morning."',example:'I WAKE UP at 7am. Yesterday I WOKE UP at 6am for school! ⏰'},
+  {id:'e26',type:'fill',q:'Past tense of GIVE: g _ _ _',ans:'gave',altAns:['Gave','GAVE'],concept:'Irregular Past Tense 📝',emoji:'🎁',explain:'GIVE → GAVE. Irregular verb! "She GAVE me a present."',example:'I GIVE gifts on birthdays. Last year I GAVE my friend a book! 🎁'},
+  {id:'e27',type:'mc',q:'What is the past tense of FLY?',opts:['flyed','flied','flew','flown'],ans:2,concept:'Irregular Past Tense 📝',emoji:'✈️',explain:'FLY → FLEW. Irregular verb! "The bird FLEW away."',example:'Birds FLY in the sky. Yesterday a bird FLEW past my window! 🐦'},
+  {id:'e28',type:'mc',q:'What is the past tense of VISIT?',opts:['visitted','visited','visit','visits'],ans:1,concept:'Regular Past Tense 📝',emoji:'🏛️',explain:'VISIT → VISITED. Regular verb! Add -ED. "We VISITED the museum."',example:'I VISIT my grandma on Sundays. Last Sunday I VISITED her! 👵'},
+  {id:'e29',type:'mc',q:'What is the past tense of CALL?',opts:['calt','calling','called','call'],ans:2,concept:'Regular Past Tense 📝',emoji:'📱',explain:'CALL → CALLED. Regular verb! Add -ED. "She CALLED me last night."',example:'I CALL my friend every day. Yesterday she CALLED me! 📞'},
+  {id:'e30',type:'mc',q:'What is the past tense of STAY?',opts:['staid','staied','stayed','staye'],ans:2,concept:'Regular Past Tense 📝',emoji:'🏠',explain:'STAY → STAYED. Regular verb! Add -ED. "We STAYED at a hotel."',example:'I STAY home on weekends. Last weekend I STAYED at my cousin's house! 🏠'},
+  {id:'e31',type:'mc',q:'How do you form a Simple Past question?',opts:['Was + subject + verb?','Did + subject + verb?','Do + subject + verb?','Does + subject + verb?'],ans:1,concept:'Simple Past Questions ❓',emoji:'❓',explain:'Simple Past questions: DID + subject + BASE verb. NOT "did you ate" - just "did you EAT"!',example:'Did you PLAY? Did she VISIT? Did they GO? Always DID + base verb! ⚽'},
+  {id:'e32',type:'fill',q:'Complete: "___ you play soccer yesterday?"',ans:'Did',altAns:['did','DID'],concept:'Simple Past Questions ❓',emoji:'⚽',explain:'Use DID for ALL subjects in past questions! DID I/you/he/she/we/they + base verb.',example:'DID you play? DID he run? DID they win? Always DID! 🏆'},
+  {id:'e33',type:'mc',q:'Complete: "What ___ you have for breakfast this morning?"',opts:['do','does','did','was'],ans:2,concept:'Simple Past WH Questions ❓',emoji:'🥞',explain:'WH questions in past: What/Where/When/Who + DID + subject + base verb?',example:'What DID you eat? Where DID you go? When DID you wake up? 🌅'},
+  {id:'e34',type:'mc',q:'"Did you have fun at the party?" Correct short answer:',opts:['Yes, I did.','Yes, I do.','Yes, I have.','Yes, I had.'],ans:0,concept:'Simple Past Short Answers ❓',emoji:'🎉',explain:'Short answers: Yes, I/he/she/we/they DID. / No, I/he/she/we/they DIDN'T.',example:'Did you have fun? Yes, I DID! / No, I DIDN'T. It was boring! 😴'},
+  {id:'e35',type:'mc',q:'"Did your parents buy you that video game?" Correct negative answer:',opts:['No, they not did.','No, they didnt.','No, they did not.','No, they not.'],ans:2,concept:'Simple Past Short Answers ❓',emoji:'🎮',explain:'Negative: No, + subject + DID NOT / DIDN'T. "No, they DID NOT."',example:'Did she come? No, she DID NOT. / Did they win? No, they DIDN'T! 😔'},
+  {id:'e36',type:'fill',q:'"___ did you go to the movies with?" "With my friends."',ans:'Who',altAns:['who','WHO'],concept:'Simple Past WH Questions ❓',emoji:'🎬',explain:'WHO asks about a person. "WHO did you go with?" - "With my friends."',example:'WHO did you see? WHO did you talk to? WHO did you invite? 🎉'},
+  {id:'e37',type:'mc',q:'"How long did you stay in Buenos Aires?" Correct answer:',opts:['For ten days.','Ten days ago.','Since ten days.','In ten days.'],ans:0,concept:'Simple Past WH Questions ❓',emoji:'🏙️',explain:'"How long" asks about duration. Answer with FOR + time period. "For ten days."',example:'How long did you stay? FOR three days! FOR two hours! FOR one week! ⏱️'},
+]
+};
 
 // ════════════════════════════════
 // STATE
