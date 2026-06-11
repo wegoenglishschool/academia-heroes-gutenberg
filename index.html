@@ -109,7 +109,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* LOADING OVERLAY */
 .loading-overlay{position:fixed;inset:0;z-index:9999;background:rgba(10,5,25,.92);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
 .loading-spinner{width:60px;height:60px;border:5px solid rgba(255,255,255,.1);
   border-top:5px solid var(--y);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -411,7 +411,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 </div>
 
 <!-- HOME -->
-<div id="s-home" class="screen">
+<div id="s-home" class="screen active">
   <span class="logo-emoji">🎮</span>
   <div class="logo-title">ACADEMIA DE HEROES</div>
   <div class="logo-sub">★ 3 PRIMARIA ★</div>
@@ -846,15 +846,15 @@ async function loadTakenAvatarsFromDB() {
 // INIT
 // ════════════════════════════════
 window.initApp = async function() {
-  genBg();
+  // Run immediately - don't wait for Firebase
   buildAvGrid({});
-  // Load taken avatars from DB
-  var taken = await loadTakenAvatarsFromDB();
-  buildAvGrid(taken);
+  show('home');
+  // Load taken avatars in background
+  try {
+    var taken = await loadTakenAvatarsFromDB();
+    buildAvGrid(taken);
+  } catch(e) {}
 };
-
-// If Firebase already ready when script loads
-if(window.firebaseReady) window.initApp();
 
 function genBg() {
   var c = document.getElementById('bgStars');
@@ -920,15 +920,16 @@ async function startGame() {
   }
   if(player.avIdx < 0) { alert('Elige tu personaje!'); return; }
   player.name = n;
-  // Show loading
-  document.getElementById('loadingOverlay').style.display = 'flex';
-  // Load player data from Firebase
-  await loadPlayerFromDB(n);
-  document.getElementById('loadingOverlay').style.display = 'none';
+  // Go to dashboard immediately - load from Firebase in background
   updStreak();
-  savePlayerToDB();
   show('dash');
   updateDash();
+  // Load player data from Firebase in background
+  try {
+    await loadPlayerFromDB(n);
+    updateDash(); // Refresh with loaded data
+  } catch(e) {}
+  savePlayerToDB();
 }
 
 function updStreak() {
@@ -1478,12 +1479,12 @@ function playFanfare(){
 // START THE APP — runs after ALL functions defined
 // ════════════════════════════════
 document.addEventListener('DOMContentLoaded', function() {
-  // Hide loading overlay
-  var overlay = document.getElementById('loadingOverlay');
-  if(overlay) overlay.style.display = 'none';
-  // Start app
   try { genBg(); } catch(e) {}
-  try { window.initApp(); } catch(e) { console.log('initApp error:', e); }
+  try { window.initApp(); } catch(e) {
+    // Fallback: show home screen directly
+    document.getElementById('s-home').classList.add('active');
+    buildAvGrid({});
+  }
 });
 </script>
 </body>
