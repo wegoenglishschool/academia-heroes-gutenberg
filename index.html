@@ -276,8 +276,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .mc-dot{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .3s;cursor:pointer;}
 .mc-dot.active{background:var(--y);transform:scale(1.4);}
 .mc-dot.done{background:var(--g);}
-.flashcard{border-radius:18px;padding:28px 22px;text-align:center;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
+.flashcard{border-radius:18px;padding:22px 18px;text-align:left;
+  display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;
   animation:cardIn .4s cubic-bezier(.34,1.56,.64,1);min-height:300px;}
 @keyframes cardIn{from{opacity:0;transform:translateX(50px) scale(.88)}to{opacity:1;transform:translateX(0) scale(1)}}
 .flashcard.lang{background:linear-gradient(135deg,rgba(127,29,0,.75),rgba(191,54,12,.55));border:2px solid var(--lang);}
@@ -285,10 +285,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .flashcard.sci{background:linear-gradient(135deg,rgba(0,51,32,.75),rgba(0,105,92,.55));border:2px solid var(--sci);}
 .flashcard.eng{background:linear-gradient(135deg,rgba(10,22,40,.75),rgba(21,101,192,.55));border:2px solid var(--eng);}
 .fc-num{font-family:'Courier New',monospace;font-size:9px;font-weight:bold;color:rgba(255,255,255,.3);margin-bottom:10px;}
-.fc-emoji{font-size:60px;display:block;margin-bottom:12px;animation:ePop .5s cubic-bezier(.34,1.56,.64,1);}
+.fc-emoji{font-size:50px;display:block;margin-bottom:10px;animation:ePop .5s cubic-bezier(.34,1.56,.64,1);text-align:center;width:100%;}
 @keyframes ePop{from{transform:scale(0)}to{transform:scale(1)}}
-.fc-concept{font-family:'Courier New',monospace;font-size:clamp(10px,2.5vw,13px);font-weight:bold;margin-bottom:12px;line-height:1.6;}
-.fc-explain{font-size:clamp(14px,2.8vw,17px);font-weight:800;color:rgba(255,255,255,.92);line-height:1.6;margin-bottom:12px;}
+.fc-concept{font-family:'Courier New',monospace;font-size:clamp(10px,2.5vw,13px);font-weight:bold;margin-bottom:12px;line-height:1.6;width:100%;text-align:center;}
+.fc-explain{font-size:clamp(13px,2.5vw,15px);font-weight:700;color:rgba(255,255,255,.92);line-height:1.8;margin-bottom:12px;width:100%;}
 .fc-example{background:rgba(0,0,0,.32);border-radius:10px;padding:12px 14px;font-size:14px;font-weight:700;
   color:var(--y);font-style:italic;line-height:1.6;width:100%;}
 .mc-nav{display:flex;gap:12px;margin-top:18px;}
@@ -403,6 +403,65 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   border:2px solid var(--or);border-radius:10px;padding:11px 16px;
   font-family:'Courier New',monospace;font-size:10px;font-weight:bold;color:var(--or);animation:slideIn .4s ease;}
 @keyframes slideIn{from{opacity:0;transform:translateX(70px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── ENGLISH VISUAL MINI-CLASS ── */
+.eng-card{width:100%;border-radius:18px;overflow:hidden;animation:cardIn .4s cubic-bezier(.34,1.56,.64,1);}
+.eng-vocab-card{background:linear-gradient(160deg,#0a1628,#1a237e);border:3px solid var(--eng);border-radius:18px;padding:20px 16px;text-align:center;width:100%;}
+.eng-big-emoji{font-size:90px;display:block;margin:0 auto 12px;animation:ePop .5s cubic-bezier(.34,1.56,.64,1);}
+.eng-big-word{font-family:'Courier New',monospace;font-size:clamp(32px,8vw,52px);font-weight:900;color:white;letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 20px rgba(100,181,246,.5);}
+.eng-spelling{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0;}
+.eng-letter{width:36px;height:36px;background:rgba(100,181,246,.2);border:2px solid var(--eng);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:16px;font-weight:900;color:var(--eng);}
+.eng-meaning{font-size:16px;font-weight:800;color:rgba(255,255,255,.75);margin:8px 0;line-height:1.5;}
+.eng-tag{display:inline-block;background:rgba(100,181,246,.2);border:2px solid var(--eng);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:900;color:var(--eng);margin-top:8px;}
+
+/* Grammar pizarrón */
+.eng-grammar-card{background:linear-gradient(160deg,#0a1628,#1a237e);border:3px solid var(--eng);border-radius:18px;padding:18px 14px;width:100%;}
+.eng-grammar-title{font-family:'Courier New',monospace;font-size:clamp(14px,3.5vw,20px);font-weight:900;color:var(--eng);text-align:center;margin-bottom:16px;letter-spacing:2px;}
+.eng-formula{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;margin-bottom:16px;}
+.eng-block{padding:8px 12px;border-radius:8px;font-family:'Courier New',monospace;font-size:clamp(10px,2.5vw,13px);font-weight:900;text-align:center;line-height:1.4;}
+.eng-block.subj{background:rgba(100,181,246,.25);border:2px solid var(--eng);color:var(--eng);}
+.eng-block.verb{background:rgba(0,230,118,.2);border:2px solid var(--g);color:var(--g);}
+.eng-block.aux{background:rgba(255,214,0,.2);border:2px solid var(--y);color:var(--y);}
+.eng-block.neg{background:rgba(255,23,68,.2);border:2px solid var(--r);color:#ff8a80;}
+.eng-block.plus{background:transparent;color:rgba(255,255,255,.4);font-size:18px;border:none;padding:4px;}
+.eng-rows{display:flex;flex-direction:column;gap:8px;width:100%;}
+.eng-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;flex-wrap:wrap;}
+.eng-row.pos{background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);}
+.eng-row.neg{background:rgba(255,23,68,.1);border:2px solid rgba(255,23,68,.25);}
+.eng-row.qst{background:rgba(100,181,246,.12);border:2px solid rgba(100,181,246,.3);}
+.eng-row-label{font-family:'Courier New',monospace;font-size:10px;font-weight:900;min-width:28px;}
+.eng-row.pos .eng-row-label{color:var(--g);}
+.eng-row.neg .eng-row-label{color:var(--r);}
+.eng-row.qst .eng-row-label{color:var(--eng);}
+.eng-row-text{font-size:14px;font-weight:800;color:white;flex:1;}
+.eng-row-highlight{color:var(--y);font-weight:900;}
+
+/* Verb table */
+.eng-verb-table{width:100%;border-collapse:separate;border-spacing:0 6px;}
+.eng-verb-table th{font-family:'Courier New',monospace;font-size:11px;color:rgba(255,255,255,.5);padding:6px 10px;text-align:left;}
+.eng-verb-row td{padding:8px 12px;font-size:14px;font-weight:800;}
+.eng-verb-row td:first-child{background:rgba(100,181,246,.15);border-radius:8px 0 0 8px;color:var(--eng);}
+.eng-verb-row td:nth-child(2){background:rgba(0,0,0,.2);color:rgba(255,255,255,.4);font-size:18px;padding:8px 4px;text-align:center;}
+.eng-verb-row td:nth-child(3){background:rgba(0,230,118,.15);border-radius:0 8px 8px 0;color:var(--g);}
+.eng-verb-row.reg td:nth-child(3){background:rgba(255,214,0,.15);color:var(--y);}
+
+/* Drag/reorder question */
+.eng-reorder{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:14px 0;}
+.eng-word-tile{background:rgba(100,181,246,.18);border:2px solid var(--eng);border-radius:10px;padding:10px 14px;font-size:15px;font-weight:900;color:white;cursor:pointer;transition:all .2s;user-select:none;}
+.eng-word-tile:hover{background:rgba(100,181,246,.3);transform:scale(1.05);}
+.eng-word-tile.selected{background:rgba(255,214,0,.25);border-color:var(--y);color:var(--y);}
+.eng-word-tile.used{opacity:.3;cursor:default;}
+.eng-answer-row{min-height:52px;background:rgba(0,0,0,.25);border:2px dashed rgba(255,255,255,.2);border-radius:10px;display:flex;gap:8px;align-items:center;padding:8px 12px;flex-wrap:wrap;margin-bottom:12px;}
+.eng-answer-tile{background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:8px;padding:8px 12px;font-size:14px;font-weight:900;color:var(--g);cursor:pointer;}
+.eng-answer-tile:hover{background:rgba(255,23,68,.2);border-color:var(--r);color:#ff8a80;}
+
+/* Matching */
+.eng-match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.eng-match-item{background:rgba(255,255,255,.07);border:3px solid rgba(255,255,255,.15);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;font-size:clamp(13px,3vw,16px);font-weight:800;}
+.eng-match-item.sel-left{border-color:var(--y);background:rgba(255,214,0,.15);}
+.eng-match-item.sel-right{border-color:var(--eng);background:rgba(100,181,246,.15);}
+.eng-match-item.matched{border-color:var(--g);background:rgba(0,230,118,.18);color:#b9ffda;cursor:default;}
+.eng-match-item.wrong-flash{border-color:var(--r);background:rgba(255,23,68,.18);animation:popIn .3s ease;}
 </style>
 </head>
 <body>
@@ -417,12 +476,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- HOME -->
 <div id="s-home" class="screen active">
   <span class="logo-emoji">🎮</span>
-  <div class="logo-title">ACADEMIA DE HEROES</div>
+  <div class="logo-title">ACADEMIA DE HÉROES</div>
   <div class="logo-sub">★ 3 PRIMARIA ★</div>
   <div style="max-width:460px;width:100%;display:flex;flex-direction:column;align-items:center;padding:0 16px;margin:0 auto;">
     <div class="home-card">
-      <label>NOMBRE DEL HEROE</label>
-      <input class="name-inp" id="nameInp" placeholder="Escribe tu nombre..." maxlength="18" autocomplete="off">
+      <label>NOMBRE DEL HÉROE</label>
+      <input class="name-inp" id="nameInp" placeholder="Escribe tu nombre..." maxlength="18" autocomplete="off" oninput="onNameInput(this.value)">
+    <div id="nameHint" style="min-height:40px;margin-top:10px;text-align:center;"></div>
     </div>
     <div class="av-label">ELIGE TU PERSONAJE</div>
     <div class="av-grid" id="avGrid"></div>
@@ -435,7 +495,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <div id="s-dash" class="screen">
   <div class="topbar">
     <span class="tb-av" id="tb-av">🎮</span>
-    <div><div class="tb-name" id="tb-name">HEROE</div><div class="tb-lv" id="tb-lv">NOVATO</div></div>
+    <div><div class="tb-name" id="tb-name">HÉROE</div><div class="tb-lv" id="tb-lv">NOVATO</div></div>
     <div class="xp-w">
       <div class="xp-lbl"><span>XP</span><span id="tb-xp-txt">0/60</span></div>
       <div class="xp-bg"><div class="xp-fill" id="tb-xp-fill" style="width:0%"></div></div>
@@ -586,7 +646,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <!-- FIREBASE REST API - No SDK needed, bypasses rules issues -->
 <script>
 // Firebase REST API - works without SDK
-var FB_PROJECT = 'academia-heroes';
+var FB_PROJECT = 'academia-héroes';
 var FB_KEY = 'AIzaSyBOBuqjijllutcCcQ7gvqA7cj7ZxuFRw3U';
 var FB_BASE = 'https://firestore.googleapis.com/v1/projects/' + FB_PROJECT + '/databases/(default)/documents';
 
@@ -661,10 +721,10 @@ window.firebaseReady = true;
 // ════════════════════════════════
 var AVATARS = [
   {em:'🧝',nm:'Elfa'},   {em:'🧙',nm:'Maga'},
-  {em:'🦸',nm:'Heroina'},{em:'🧚',nm:'Hada'},
+  {em:'🦸',nm:'Heroína'},{em:'🧚',nm:'Hada'},
   {em:'👸',nm:'Princesa'},{em:'🦄',nm:'Unicornio'},
   {em:'🐱',nm:'Gatita'}, {em:'🐬',nm:'Sirena'},
-  {em:'🔮',nm:'Mago'},   {em:'⚡',nm:'Heroe'},
+  {em:'🔮',nm:'Mago'},   {em:'⚡',nm:'Héroe'},
   {em:'🐉',nm:'Dragon'}, {em:'🤖',nm:'Robot'},
   {em:'👾',nm:'Alien'},  {em:'🐸',nm:'Rana'},
   {em:'🦊',nm:'Zorro'},  {em:'🏹',nm:'Elfo'},
@@ -680,7 +740,7 @@ var SUBJS = {
 var LEVELS = [
   {min:0,name:'NOVATO'},
   {min:60,name:'APRENDIZ'},
-  {min:150,name:'HEROE'},
+  {min:150,name:'HÉROE'},
   {min:300,name:'MAESTRO'},
   {min:500,name:'LEYENDA'},
 ];
@@ -758,45 +818,296 @@ sci:[
   {id:'c13',type:'mc',q:'Que movimiento muestra la imagen de la Tierra girando sobre si misma?',opts:['Vibracion','Traslacion','Rotacion'],ans:2,concept:'Rotacion de la Tierra',emoji:'🌀',explain:'La ROTACION es cuando la Tierra gira sobre su propio eje! Como un trompo. Tarda 24 horas.',example:'La Tierra gira como un trompo. Dura 24 horas!'},
   {id:'c14',type:'mc',q:'Que fenomeno provoca el movimiento de ROTACION de la Tierra?',opts:['Las estaciones del ano','El dia y la noche','Los eclipses'],ans:1,concept:'Rotacion y Dia y Noche',emoji:'☀️',explain:'La rotacion causa el dia y la noche! La parte que da al Sol = dia. La parte en sombra = noche.',example:'Tu lado ve al Sol = dia. Se aleja = noche.'},
   {id:'c15',type:'mc',q:'Cuantas fases tiene la Luna durante su ciclo completo?',opts:['Ocho','Tres','Una'],ans:0,concept:'Fases de la Luna',emoji:'🌕',explain:'La Luna tiene 8 fases en su ciclo! Las principales: nueva, creciente, llena y menguante.',example:'8 fases completas en el ciclo lunar!'},
-  {id:'c16',type:'mc',q:'Que factor provoca el cambio de clima en las estaciones del ano?',opts:['La forma de las montanas','El movimiento de TRASLACION de la Tierra','Los colores de las plantas'],ans:1,concept:'Traslacion y Estaciones',emoji:'🌍',explain:'La TRASLACION es el viaje de la Tierra alrededor del Sol! Tarda 365 dias y causa las 4 estaciones.',example:'Tierra viaja alrededor del Sol en 1 ano = 4 estaciones.'},
+  {id:'c16',type:'mc',q:'Que factor provoca el cambio de clima en las estaciones del ano?',opts:['La forma de las montanas','El movimiento de TRASLACION de la Tierra','Los colores de las plantas'],ans:1,concept:'Traslacion y Estaciones',emoji:'🌍',explain:'La TRASLACION es el viaje de la Tierra alrededor del Sol! Tarda 365 dias y causa las 4 estaciones.',example:'Tierra viaja alrededor del Sol en 1 ano = 4 estaciones.'}
+],
 eng:[
-  {id:'e1',type:'mc',q:'What country does this flag represent? 🇦🇺',opts:['Argentina','Australia','Austria','America'],ans:1,concept:'Countries of the World 🌍',emoji:'🌏',explain:'Australia is in Oceania. Its flag has the Union Jack and the Southern Cross.',example:'Australia is famous for kangaroos and the Great Barrier Reef! 🦘'},
-  {id:'e2',type:'mc',q:'What country does this flag represent? 🇧🇷',opts:['Bolivia','Belgium','Brazil','Britain'],ans:2,concept:'Countries of the World 🌍',emoji:'🌎',explain:'Brazil is the largest country in South America. Its flag is green and yellow.',example:'Brazil is famous for the Amazon rainforest and Carnival! 🎉'},
-  {id:'e3',type:'mc',q:'What country does this flag represent? 🇦🇷',opts:['Australia','Armenia','Argentina','Algeria'],ans:2,concept:'Countries of the World 🌍',emoji:'🌎',explain:'Argentina is in South America. Its flag has blue and white stripes with a sun.',example:'Argentina is famous for tango dancing and soccer! ⚽'},
-  {id:'e4',type:'fill',q:'This country is in North America and borders the USA to the north. Its flag is 🇲🇽',ans:'Mexico',altAns:['mexico','MEXICO'],concept:'Countries 🌍',emoji:'🌮',explain:'Mexico is in North America. Its capital is Mexico City! In Spanish: Ciudad de Mexico.',example:'Mexico is famous for tacos, mariachi music and ancient pyramids! 🏛️'},
-  {id:'e5',type:'mc',q:'Which country is the most populated in the world? 🇨🇳',opts:['Chile','China','Cuba','Canada'],ans:1,concept:'Countries of the World 🌍',emoji:'🐼',explain:'China is the most populated country. Its flag is red with yellow stars.',example:'China is famous for the Great Wall, pandas and kung fu! 🥋'},
-  {id:'e6',type:'mc',q:'Which of these countries is in Europe?',opts:['Brazil','India','Spain','Australia'],ans:2,concept:'Countries and Continents 🗺️',emoji:'🇪🇸',explain:'Spain is in Europe. Brazil is in South America, India in Asia, Australia in Oceania.',example:'Spain is famous for flamenco dancing, paella and Real Madrid! 💃'},
-  {id:'e7',type:'mc',q:'What continent is India in? 🇮🇳',opts:['Africa','Europe','America','Asia'],ans:3,concept:'Countries and Continents 🗺️',emoji:'🇮🇳',explain:'India is in Asia. It is the second most populated country in the world!',example:'India is famous for the Taj Mahal, curry and Bollywood movies! 🎬'},
-  {id:'e8',type:'fill',q:'Egypt 🇪🇬 is in the continent of ___.',ans:'Africa',altAns:['africa','AFRICA'],concept:'Countries and Continents 🗺️',emoji:'🇪🇬',explain:'Egypt is in Africa. It is famous for the Pyramids and the Nile River!',example:'The pyramids of Egypt are one of the Seven Wonders of the World! 🔺'},
-  {id:'e9',type:'mc',q:'Turkey 🇹🇷 is located between which two continents?',opts:['Africa and Asia','Europe and Asia','Europe and America','Asia and Oceania'],ans:1,concept:'Countries 🇹🇷',emoji:'🌉',explain:'Turkey is unique - it is located on both Europe and Asia at the same time!',example:'Istanbul is the only city in the world that sits on two continents! 🕌'},
-  {id:'e10',type:'mc',q:'Which country flag has a crescent moon and star? 🌙⭐',opts:['India','China','Turkey','Brazil'],ans:2,concept:'Countries 🇹🇷',emoji:'🌙',explain:'Turkey's flag is red with a white crescent moon and star.',example:'Turkey is famous for its amazing food, carpets and beautiful mosques! 🕌'},
-  {id:'e11',type:'mc',q:'What weather word starts with F? You cannot see far. The air looks white and thick.',opts:['Freezing','Foggy','Frosty','Fine'],ans:1,concept:'Weather Words ⛅',emoji:'🌫️',explain:'FOGGY = lots of fog near the ground. You cannot see far on a foggy day!',example:'F-O-G-G-Y. On a foggy day: "I cannot see anything!" 🌫️'},
-  {id:'e12',type:'mc',q:'There is lightning and very loud thunder. What is the weather?',opts:['Windy','Cloudy','Thunderstorm','Rainy'],ans:2,concept:'Weather Words ⛅',emoji:'⛈️',explain:'A THUNDERSTORM has thunder, lightning, strong winds and heavy rain!',example:'T-H-U-N-D-E-R-S-T-O-R-M. BOOM! Thunder. FLASH! Lightning! ⛈️'},
-  {id:'e13',type:'mc',q:'Water is falling from the sky. What is the weather?',opts:['Windy','Rainy','Foggy','Cloudy'],ans:1,concept:'Weather Words ⛅',emoji:'🌧️',explain:'RAINY = it is raining! Water falls from the clouds.',example:'R-A-I-N-Y. On a rainy day you need an umbrella! ☂️'},
-  {id:'e14',type:'mc',q:'The air is moving very fast and strong. What is the weather?',opts:['Cloudy','Foggy','Rainy','Windy'],ans:3,concept:'Weather Words ⛅',emoji:'💨',explain:'WINDY = the wind is blowing strongly. It can blow your hat away!',example:'W-I-N-D-Y. On a windy day, hold your hat! 🎩'},
-  {id:'e15',type:'mc',q:'The sky is grey and full of clouds but it is NOT raining. What is the weather?',opts:['Foggy','Thunderstorm','Cloudy','Windy'],ans:2,concept:'Weather Words ⛅',emoji:'☁️',explain:'CLOUDY = the sky is covered with clouds. It might rain later!',example:'C-L-O-U-D-Y. On a cloudy day the sky looks grey. 🌥️'},
-  {id:'e16',type:'mc',q:'Which sentence uses GOING TO correctly?',opts:['I going to play soccer.','I am going to play soccer.','I am go to play soccer.','I goes to play soccer.'],ans:1,concept:'Going To — Future 🔮',emoji:'⚽',explain:'Structure: Subject + AM/IS/ARE + GOING TO + base verb.',example:'I AM going to study. She IS going to eat. They ARE going to run! 🏃'},
-  {id:'e17',type:'mc',q:'How do you make a GOING TO question?',opts:['You are going to swim?','Are you going to swim?','Do you going to swim?','Is you going to swim?'],ans:1,concept:'Going To — Questions 🔮',emoji:'🏊',explain:'Questions: ARE/IS/AM + subject + GOING TO + verb?',example:'ARE you going to swim? IS she going to dance? ARE they going to play? 🎮'},
-  {id:'e18',type:'mc',q:'Complete: "She ___ going to visit her grandma tomorrow."',opts:['am','are','is','be'],ans:2,concept:'Going To — Future 🔮',emoji:'👵',explain:'She = IS. I am / He She It IS / You We They ARE going to...',example:'She IS going to visit grandma. He IS going to cook. ☀️'},
-  {id:'e19',type:'mc',q:'What is the negative of "I am going to watch TV"?',opts:['I am not going to watch TV.','I not going to watch TV.','I am going to not watch TV.','I dont going to watch TV.'],ans:0,concept:'Going To — Negative 🔮',emoji:'📺',explain:'Negative: Subject + AM/IS/ARE + NOT + GOING TO + verb.',example:'I am NOT going to eat junk food. She is NOT going to be late! 🚫'},
-  {id:'e20',type:'fill',q:'Complete: "___ they going to play basketball after school?"',ans:'Are',altAns:['are','ARE'],concept:'Going To — Questions 🔮',emoji:'🏀',explain:'THEY = ARE. "ARE they going to play basketball?"',example:'Are THEY going? Are WE going? Are YOU going? Always ARE with they/we/you! 🏀'},
-  {id:'e21',type:'mc',q:'What is the past tense of GO?',opts:['goed','gone','went','goes'],ans:2,concept:'Irregular Past Tense 📝',emoji:'🚶',explain:'GO → WENT. Irregular verb! Does NOT add -ed. "Yesterday I WENT to school."',example:'I GO to school every day. Yesterday I WENT to school! 🏫'},
-  {id:'e22',type:'mc',q:'What is the past tense of SEE?',opts:['seed','seen','sawed','saw'],ans:3,concept:'Irregular Past Tense 📝',emoji:'👀',explain:'SEE → SAW. Irregular verb! "Yesterday I SAW a great movie."',example:'I SEE my friends every day. Yesterday I SAW a great movie! 🎬'},
-  {id:'e23',type:'mc',q:'What is the past tense of FEEL?',opts:['feeled','felled','felt','feelt'],ans:2,concept:'Irregular Past Tense 📝',emoji:'💙',explain:'FEEL → FELT. Irregular verb! "Yesterday I FELT very happy."',example:'I FEEL great today! Yesterday I FELT sick and stayed home. 🤒'},
-  {id:'e24',type:'mc',q:'What is the past tense of SAY?',opts:['sayed','said','sied','says'],ans:1,concept:'Irregular Past Tense 📝',emoji:'💬',explain:'SAY → SAID. Irregular verb! "She SAID hello to me."',example:'He SAYS goodbye every day. Yesterday he SAID "thank you" to his teacher! 😊'},
-  {id:'e25',type:'mc',q:'What is the past tense of WAKE UP?',opts:['wake uped','waked up','woken up','woke up'],ans:3,concept:'Irregular Past Tense 📝',emoji:'⏰',explain:'WAKE UP → WOKE UP. Irregular verb! "I WOKE UP early this morning."',example:'I WAKE UP at 7am. Yesterday I WOKE UP at 6am for school! ⏰'},
-  {id:'e26',type:'fill',q:'Past tense of GIVE: g _ _ _',ans:'gave',altAns:['Gave','GAVE'],concept:'Irregular Past Tense 📝',emoji:'🎁',explain:'GIVE → GAVE. Irregular verb! "She GAVE me a present."',example:'I GIVE gifts on birthdays. Last year I GAVE my friend a book! 🎁'},
-  {id:'e27',type:'mc',q:'What is the past tense of FLY?',opts:['flyed','flied','flew','flown'],ans:2,concept:'Irregular Past Tense 📝',emoji:'✈️',explain:'FLY → FLEW. Irregular verb! "The bird FLEW away."',example:'Birds FLY in the sky. Yesterday a bird FLEW past my window! 🐦'},
-  {id:'e28',type:'mc',q:'What is the past tense of VISIT?',opts:['visitted','visited','visit','visits'],ans:1,concept:'Regular Past Tense 📝',emoji:'🏛️',explain:'VISIT → VISITED. Regular verb! Add -ED. "We VISITED the museum."',example:'I VISIT my grandma on Sundays. Last Sunday I VISITED her! 👵'},
-  {id:'e29',type:'mc',q:'What is the past tense of CALL?',opts:['calt','calling','called','call'],ans:2,concept:'Regular Past Tense 📝',emoji:'📱',explain:'CALL → CALLED. Regular verb! Add -ED. "She CALLED me last night."',example:'I CALL my friend every day. Yesterday she CALLED me! 📞'},
-  {id:'e30',type:'mc',q:'What is the past tense of STAY?',opts:['staid','staied','stayed','staye'],ans:2,concept:'Regular Past Tense 📝',emoji:'🏠',explain:'STAY → STAYED. Regular verb! Add -ED. "We STAYED at a hotel."',example:'I STAY home on weekends. Last weekend I STAYED at my cousin's house! 🏠'},
-  {id:'e31',type:'mc',q:'How do you form a Simple Past question?',opts:['Was + subject + verb?','Did + subject + verb?','Do + subject + verb?','Does + subject + verb?'],ans:1,concept:'Simple Past Questions ❓',emoji:'❓',explain:'Simple Past questions: DID + subject + BASE verb. NOT "did you ate" - just "did you EAT"!',example:'Did you PLAY? Did she VISIT? Did they GO? Always DID + base verb! ⚽'},
-  {id:'e32',type:'fill',q:'Complete: "___ you play soccer yesterday?"',ans:'Did',altAns:['did','DID'],concept:'Simple Past Questions ❓',emoji:'⚽',explain:'Use DID for ALL subjects in past questions! DID I/you/he/she/we/they + base verb.',example:'DID you play? DID he run? DID they win? Always DID! 🏆'},
-  {id:'e33',type:'mc',q:'Complete: "What ___ you have for breakfast this morning?"',opts:['do','does','did','was'],ans:2,concept:'Simple Past WH Questions ❓',emoji:'🥞',explain:'WH questions in past: What/Where/When/Who + DID + subject + base verb?',example:'What DID you eat? Where DID you go? When DID you wake up? 🌅'},
-  {id:'e34',type:'mc',q:'"Did you have fun at the party?" Correct short answer:',opts:['Yes, I did.','Yes, I do.','Yes, I have.','Yes, I had.'],ans:0,concept:'Simple Past Short Answers ❓',emoji:'🎉',explain:'Short answers: Yes, I/he/she/we/they DID. / No, I/he/she/we/they DIDN'T.',example:'Did you have fun? Yes, I DID! / No, I DIDN'T. It was boring! 😴'},
-  {id:'e35',type:'mc',q:'"Did your parents buy you that video game?" Correct negative answer:',opts:['No, they not did.','No, they didnt.','No, they did not.','No, they not.'],ans:2,concept:'Simple Past Short Answers ❓',emoji:'🎮',explain:'Negative: No, + subject + DID NOT / DIDN'T. "No, they DID NOT."',example:'Did she come? No, she DID NOT. / Did they win? No, they DIDN'T! 😔'},
-  {id:'e36',type:'fill',q:'"___ did you go to the movies with?" "With my friends."',ans:'Who',altAns:['who','WHO'],concept:'Simple Past WH Questions ❓',emoji:'🎬',explain:'WHO asks about a person. "WHO did you go with?" - "With my friends."',example:'WHO did you see? WHO did you talk to? WHO did you invite? 🎉'},
-  {id:'e37',type:'mc',q:'"How long did you stay in Buenos Aires?" Correct answer:',opts:['For ten days.','Ten days ago.','Since ten days.','In ten days.'],ans:0,concept:'Simple Past WH Questions ❓',emoji:'🏙️',explain:'"How long" asks about duration. Answer with FOR + time period. "For ten days."',example:'How long did you stay? FOR three days! FOR two hours! FOR one week! ⏱️'},
+// ══ COUNTRIES VOCAB CARDS (for mini-class) ══
+// These have cardType so renderMiniCard uses buildEngCard
+// They are NOT used as questions - they are mini-class slides only
+// Questions come after
+
+// ══ COUNTRIES QUESTIONS ══
+{id:'e1',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'australia',
+ opts:['Argentina','Australia','Austria','America'],ans:1,
+ concept:'Countries 🌍',emoji:'🌏',
+ explain:'',example:'',
+ cardHtml:'<div class="eng-vocab-card"><span class="eng-big-emoji">🇦🇺</span><div class="eng-big-word">AUSTRALIA</div><div class="eng-spelling"><div class="eng-letter">A</div><div class="eng-letter">U</div><div class="eng-letter">S</div><div class="eng-letter">T</div><div class="eng-letter">R</div><div class="eng-letter">A</div><div class="eng-letter">L</div><div class="eng-letter">I</div><div class="eng-letter">A</div></div><div class="eng-meaning">🦘 Land of kangaroos and koalas</div><span class="eng-tag">Oceania</span></div>',
+ cardType:'vocab',word:'AUSTRALIA',meaning:'🦘 Land of kangaroos and koalas',tag:'Oceania'},
+
+{id:'e2',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'brazil',
+ opts:['Bolivia','Belgium','Brazil','Britain'],ans:2,
+ concept:'Countries 🌍',emoji:'🌎',explain:'',example:'',
+ cardType:'vocab',word:'BRAZIL',meaning:'🌿 Largest country in South America',tag:'South America'},
+
+{id:'e3',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'argentina',
+ opts:['Australia','Armenia','Argentina','Algeria'],ans:2,
+ concept:'Countries 🌍',emoji:'🌎',explain:'',example:'',
+ cardType:'vocab',word:'ARGENTINA',meaning:'💃 Land of tango and soccer',tag:'South America'},
+
+{id:'e4',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'mexico',
+ opts:['Morocco','Madagascar','Malaysia','Mexico'],ans:3,
+ concept:'Countries 🌍',emoji:'🌮',explain:'',example:'',
+ cardType:'vocab',word:'MEXICO',meaning:'🌮 Land of tacos and pyramids',tag:'North America'},
+
+{id:'e5',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'china',
+ opts:['Chile','China','Cuba','Canada'],ans:1,
+ concept:'Countries 🌍',emoji:'🐼',explain:'',example:'',
+ cardType:'vocab',word:'CHINA',meaning:'🐼 Land of pandas and the Great Wall',tag:'Asia'},
+
+{id:'e6',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'spain',
+ opts:['Sweden','Switzerland','Spain','Slovakia'],ans:2,
+ concept:'Countries 🌍',emoji:'💃',explain:'',example:'',
+ cardType:'vocab',word:'SPAIN',meaning:'💃 Land of flamenco and paella',tag:'Europe'},
+
+{id:'e7',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'india',
+ opts:['Iran','Iraq','India','Indonesia'],ans:2,
+ concept:'Countries 🌍',emoji:'🇮🇳',explain:'',example:'',
+ cardType:'vocab',word:'INDIA',meaning:'🕌 Land of the Taj Mahal',tag:'Asia'},
+
+{id:'e8',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'egypt',
+ opts:['England','Ethiopia','Ecuador','Egypt'],ans:3,
+ concept:'Countries 🌍',emoji:'🔺',explain:'',example:'',
+ cardType:'vocab',word:'EGYPT',meaning:'🔺 Land of pyramids and the Nile River',tag:'Africa'},
+
+{id:'e9',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'turkey',
+ opts:['Thailand','Tunisia','Turkey','Taiwan'],ans:2,
+ concept:'Countries 🌍',emoji:'🌙',explain:'',example:'',
+ cardType:'vocab',word:'TURKEY',meaning:'🌙 Land between Europe and Asia',tag:'Europe & Asia'},
+
+{id:'e10',type:'mc',
+ q:'Which country is this? 👇', flagDisplay:'chile',
+ opts:['Colombia','Croatia','Cuba','Chile'],ans:3,
+ concept:'Countries 🌍',emoji:'🇨🇱',explain:'',example:'',
+ cardType:'vocab',word:'CHILE',meaning:'🌶️ Long and narrow country in South America',tag:'South America'},
+
+{id:'e10b',type:'fill',
+ q:'Complete: AUS _ _ _ _ _ A 🇦🇺',
+ ans:'TRALI',altAns:['trali','Trali','TRALIA','tralia'],
+ concept:'Countries Spelling 🌍',emoji:'🦘',explain:'',example:'',
+ cardType:'vocab',word:'AUSTRALIA',meaning:'🦘 Land of kangaroos',tag:'Oceania'},
+
+{id:'e10c',type:'reorder',
+ q:'Reorder the letters to spell the country: 🇦🇷',
+ letters:['A','N','I','T','A','G','E','N','R'],answer:'ARGENTINA',
+ concept:'Countries Spelling 🌍',emoji:'💃',explain:'',example:'',
+ cardType:'vocab',word:'ARGENTINA',meaning:'💃 Land of tango',tag:'South America'},
+
+{id:'e10d',type:'reorder',
+ q:'Reorder the letters to spell the country: 🇲🇽',
+ letters:['X','E','M','C','O','I'],answer:'MEXICO',
+ concept:'Countries Spelling 🌍',emoji:'🌮',explain:'',example:'',
+ cardType:'vocab',word:'MEXICO',meaning:'🌮 Land of tacos',tag:'North America'},
+
+// ══ WEATHER QUESTIONS ══
+{id:'e11',type:'mc',
+ q:'Which weather word matches this? 👇', flagDisplay:'🌫️',
+ opts:['Windy','Foggy','Rainy','Cloudy'],ans:1,
+ concept:'Weather Words ⛅',emoji:'🌫️',explain:'',example:'',
+ cardType:'vocab',word:'FOGGY',meaning:'🌫️ Cannot see far — thick white air',tag:'F-O-G-G-Y'},
+
+{id:'e12',type:'mc',
+ q:'Which weather word matches this? 👇', flagDisplay:'⛈️',
+ opts:['Windy','Cloudy','Thunderstorm','Rainy'],ans:2,
+ concept:'Weather Words ⛅',emoji:'⛈️',explain:'',example:'',
+ cardType:'vocab',word:'THUNDERSTORM',meaning:'⛈️ Lightning + Thunder + Heavy rain',tag:'T-H-U-N-D-E-R-S-T-O-R-M'},
+
+{id:'e13',type:'mc',
+ q:'Which weather word matches this? 👇', flagDisplay:'🌧️',
+ opts:['Windy','Rainy','Foggy','Cloudy'],ans:1,
+ concept:'Weather Words ⛅',emoji:'🌧️',explain:'',example:'',
+ cardType:'vocab',word:'RAINY',meaning:'🌧️ Water falls from the sky',tag:'R-A-I-N-Y'},
+
+{id:'e14',type:'mc',
+ q:'Which weather word matches this? 👇', flagDisplay:'💨',
+ opts:['Cloudy','Foggy','Rainy','Windy'],ans:3,
+ concept:'Weather Words ⛅',emoji:'💨',explain:'',example:'',
+ cardType:'vocab',word:'WINDY',meaning:'💨 Strong air movement',tag:'W-I-N-D-Y'},
+
+{id:'e15',type:'mc',
+ q:'Which weather word matches this? 👇', flagDisplay:'☁️',
+ opts:['Foggy','Thunderstorm','Cloudy','Windy'],ans:2,
+ concept:'Weather Words ⛅',emoji:'☁️',explain:'',example:'',
+ cardType:'vocab',word:'CLOUDY',meaning:'☁️ Grey sky, full of clouds',tag:'C-L-O-U-D-Y'},
+
+{id:'e15b',type:'fill',
+ q:'Complete the weather word: F _ _ G G Y 🌫️',
+ ans:'O',altAns:['o'],
+ concept:'Weather Spelling ⛅',emoji:'🌫️',explain:'',example:'',
+ cardType:'vocab',word:'FOGGY',meaning:'🌫️ Cannot see far',tag:'F-O-G-G-Y'},
+
+{id:'e15c',type:'fill',
+ q:'Complete the weather word: W _ N D Y 💨',
+ ans:'I',altAns:['i'],
+ concept:'Weather Spelling ⛅',emoji:'💨',explain:'',example:'',
+ cardType:'vocab',word:'WINDY',meaning:'💨 Strong air movement',tag:'W-I-N-D-Y'},
+
+{id:'e15d',type:'fill',
+ q:'Complete the weather word: C L O U _ Y ☁️',
+ ans:'D',altAns:['d'],
+ concept:'Weather Spelling ⛅',emoji:'☁️',explain:'',example:'',
+ cardType:'vocab',word:'CLOUDY',meaning:'☁️ Grey sky, full of clouds',tag:'C-L-O-U-D-Y'},
+
+{id:'e15e',type:'mc',
+ q:'Match with the weather word: 👇', flagDisplay:'⛈️',
+ opts:['🌫️ Foggy','⛈️ Thunderstorm','🌧️ Rainy','💨 Windy'],ans:1,
+ concept:'Weather Words ⛅',emoji:'⛈️',explain:'',example:'',
+ cardType:'vocab',word:'THUNDERSTORM',meaning:'⛈️ Lightning and thunder',tag:'T-H-U-N-D-E-R-S-T-O-R-M'},
+
+{id:'e15f',type:'mc',
+ q:'Which weather goes with SUMMER? ☀️',
+ opts:['❄️ Snowy','⛈️ Thunderstorm','☁️ Cloudy','🌫️ Foggy'],ans:1,
+ concept:'Weather & Seasons ⛅',emoji:'☀️',explain:'',example:'',
+ cardType:'vocab',word:'THUNDERSTORM',meaning:'⛈️ Lightning and thunder — common in summer!',tag:'Summer = hot and stormy'},
+
+{id:'e15g',type:'mc',
+ q:'Which weather goes with WINTER? ❄️',
+ opts:['⛈️ Thunderstorm','🌧️ Rainy','☁️ Cloudy','💨 Windy'],ans:2,
+ concept:'Weather & Seasons ⛅',emoji:'❄️',explain:'',example:'',
+ cardType:'vocab',word:'CLOUDY',meaning:'☁️ Grey sky — common in winter!',tag:'Winter = cold and cloudy'},
+
+{id:'e15h',type:'fill',
+ q:'Complete: T _ _ _ _ _ _ _ _ _ _ M ⛈️',
+ ans:'HUNDERSTORM',altAns:['hunderstorm','Hunderstorm','thunderstorm','THUNDERSTORM'],
+ concept:'Weather Spelling ⛅',emoji:'⛈️',explain:'',example:'',
+ cardType:'vocab',word:'THUNDERSTORM',meaning:'⛈️ Lightning + Thunder + Heavy rain',tag:'T-H-U-N-D-E-R-S-T-O-R-M'},
+
+// ══ GOING TO QUESTIONS ══
+{id:'e16',type:'mc',
+ q:'Choose the CORRECT sentence:',
+ opts:['I going to play.','I am going to play.','I am go to play.','I goes to play.'],ans:1,
+ concept:'Going To 🔮',emoji:'🔮',explain:'',example:'',
+ cardType:'grammar',html:'<div class="eng-rows"><div class="eng-row pos"><span class="eng-row-label">✅</span><span class="eng-row-text">I <span class="eng-row-highlight">AM</span> going to play.</span></div><div class="eng-row neg"><span class="eng-row-label">❌</span><span class="eng-row-text">I AM <span class="eng-row-highlight">NOT</span> going to play.</span></div><div class="eng-row qst"><span class="eng-row-label">❓</span><span class="eng-row-text"><span class="eng-row-highlight">ARE</span> you going to play?</span></div></div>'},
+
+{id:'e17',type:'mc',
+ q:'Complete: "She ___ going to dance tonight."',
+ opts:['am','are','is','be'],ans:2,
+ concept:'Going To 🔮',emoji:'💃',explain:'',example:'',
+ cardType:'grammar',html:'<div class="eng-rows"><div class="eng-row pos"><span class="eng-row-label">I</span><span class="eng-row-text"><span class="eng-row-highlight">AM</span> going to...</span></div><div class="eng-row pos"><span class="eng-row-label">He/She</span><span class="eng-row-text"><span class="eng-row-highlight">IS</span> going to...</span></div><div class="eng-row pos"><span class="eng-row-label">They</span><span class="eng-row-text"><span class="eng-row-highlight">ARE</span> going to...</span></div></div>'},
+
+{id:'e18',type:'mc',
+ q:'Complete: "___ you going to study tonight?"',
+ opts:['Am','Is','Are','Do'],ans:2,
+ concept:'Going To Questions 🔮',emoji:'❓',explain:'',example:'',
+ cardType:'grammar',html:'<div class="eng-rows"><div class="eng-row qst"><span class="eng-row-label">❓</span><span class="eng-row-text"><span class="eng-row-highlight">ARE</span> you going to swim?</span></div><div class="eng-row qst"><span class="eng-row-label">❓</span><span class="eng-row-text"><span class="eng-row-highlight">IS</span> she going to dance?</span></div><div class="eng-row pos"><span class="eng-row-label">✅</span><span class="eng-row-text">Yes, I <span class="eng-row-highlight">AM</span>.</span></div><div class="eng-row neg"><span class="eng-row-label">❌</span><span class="eng-row-text">No, I <span class="eng-row-highlight">AM NOT</span>.</span></div></div>'},
+
+{id:'e19',type:'reorder',
+ q:'Put the words in order to make a sentence:',
+ letters:['to','going','She','is','dance'],answer:'She is going to dance',
+ concept:'Going To 🔮',emoji:'💃',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e20',type:'reorder',
+ q:'Put the words in order to make a question:',
+ letters:['going','Are','to','you','swim','?'],answer:'Are you going to swim ?',
+ concept:'Going To 🔮',emoji:'🏊',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+// ══ PAST TENSE QUESTIONS ══
+{id:'e21',type:'mc',
+ q:'What is the past tense of GO?',
+ opts:['goed','gone','went','goes'],ans:2,
+ concept:'Irregular Past Tense 📝',emoji:'📝',explain:'',example:'',
+ cardType:'grammar',html:'<table class="eng-verb-table"><tr><th>Infinitive</th><th></th><th>Past</th></tr><tr class="eng-verb-row"><td>GIVE</td><td>→</td><td>GAVE</td></tr><tr class="eng-verb-row"><td>GO</td><td>→</td><td>WENT</td></tr><tr class="eng-verb-row"><td>WAKE UP</td><td>→</td><td>WOKE UP</td></tr><tr class="eng-verb-row"><td>SAY</td><td>→</td><td>SAID</td></tr><tr class="eng-verb-row"><td>FEEL</td><td>→</td><td>FELT</td></tr><tr class="eng-verb-row"><td>SEE</td><td>→</td><td>SAW</td></tr><tr class="eng-verb-row"><td>FLY</td><td>→</td><td>FLEW</td></tr></table>'},
+
+{id:'e22',type:'mc',
+ q:'What is the past tense of FEEL?',
+ opts:['feeled','felled','felt','feelt'],ans:2,
+ concept:'Irregular Past Tense 📝',emoji:'💙',explain:'',example:'',
+ cardType:'grammar',html:'<table class="eng-verb-table"><tr><th>Infinitive</th><th></th><th>Past</th></tr><tr class="eng-verb-row"><td>GIVE</td><td>→</td><td>GAVE</td></tr><tr class="eng-verb-row"><td>GO</td><td>→</td><td>WENT</td></tr><tr class="eng-verb-row"><td>SAY</td><td>→</td><td>SAID</td></tr><tr class="eng-verb-row"><td>FEEL</td><td>→</td><td>FELT</td></tr><tr class="eng-verb-row"><td>SEE</td><td>→</td><td>SAW</td></tr><tr class="eng-verb-row"><td>FLY</td><td>→</td><td>FLEW</td></tr></table>'},
+
+{id:'e23',type:'mc',
+ q:'What is the past tense of SAY?',
+ opts:['sayed','said','sied','says'],ans:1,
+ concept:'Irregular Past Tense 📝',emoji:'💬',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e24',type:'mc',
+ q:'What is the past tense of WAKE UP?',
+ opts:['wake uped','waked up','woken up','woke up'],ans:3,
+ concept:'Irregular Past Tense 📝',emoji:'⏰',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e25',type:'fill',
+ q:'GIVE → g _ _ _',
+ ans:'ave',altAns:['AVE','Ave'],
+ concept:'Irregular Past Tense 📝',emoji:'🎁',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e26',type:'mc',
+ q:'What is the past tense of FLY?',
+ opts:['flyed','flied','flew','flown'],ans:2,
+ concept:'Irregular Past Tense 📝',emoji:'✈️',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e27',type:'mc',
+ q:'What is the past tense of VISIT? (regular verb)',
+ opts:['visitted','visited','visit','visits'],ans:1,
+ concept:'Regular Past Tense +ED 📝',emoji:'🏛️',explain:'',example:'',
+ cardType:'grammar',html:'<table class="eng-verb-table"><tr><th>Infinitive</th><th></th><th>Past (+ED)</th></tr><tr class="eng-verb-row reg"><td>VISIT</td><td>→</td><td>VISITED</td></tr><tr class="eng-verb-row reg"><td>PLAY</td><td>→</td><td>PLAYED</td></tr><tr class="eng-verb-row reg"><td>OPEN</td><td>→</td><td>OPENED</td></tr><tr class="eng-verb-row reg"><td>STAY</td><td>→</td><td>STAYED</td></tr><tr class="eng-verb-row reg"><td>CALL</td><td>→</td><td>CALLED</td></tr></table>'},
+
+{id:'e28',type:'fill',
+ q:'CALL → c _ _ _ _ _',
+ ans:'alled',altAns:['ALLED','Alled'],
+ concept:'Regular Past Tense +ED 📝',emoji:'📱',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e29',type:'reorder',
+ q:'Unscramble the letters to make the past tense of GO:',
+ letters:['T','N','E','W'],answer:'WENT',
+ concept:'Irregular Past Tense 📝',emoji:'🚶',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e30',type:'reorder',
+ q:'Unscramble the letters to make the past tense of SEE:',
+ letters:['W','A','S'],answer:'SAW',
+ concept:'Irregular Past Tense 📝',emoji:'👀',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+// ══ SIMPLE PAST QUESTIONS ══
+{id:'e31',type:'fill',
+ q:'Complete: "___ you play soccer yesterday?"',
+ ans:'Did',altAns:['did','DID'],
+ concept:'Simple Past Questions ❓',emoji:'⚽',explain:'',example:'',
+ cardType:'grammar',html:'<div class="eng-rows"><div class="eng-row qst"><span class="eng-row-label">Formula</span><span class="eng-row-text"><span class="eng-row-highlight">DID</span> + subject + base verb + ?</span></div><div class="eng-row qst"><span class="eng-row-label">❓</span><span class="eng-row-text">DID you PLAY soccer?</span></div><div class="eng-row pos"><span class="eng-row-label">✅</span><span class="eng-row-text">Yes, I <span class="eng-row-highlight">DID</span>.</span></div><div class="eng-row neg"><span class="eng-row-label">❌</span><span class="eng-row-text">No, I <span class="eng-row-highlight">DID NOT</span>.</span></div></div>'},
+
+{id:'e32',type:'mc',
+ q:'Complete: "What ___ you have for breakfast?"',
+ opts:['do','does','did','was'],ans:2,
+ concept:'Simple Past Questions ❓',emoji:'🥞',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e33',type:'mc',
+ q:'"Did you have fun at the party?" - Correct answer:',
+ opts:['Yes, I did.','Yes, I do.','Yes, I have.','Yes, I had.'],ans:0,
+ concept:'Simple Past Short Answers ❓',emoji:'🎉',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e34',type:'mc',
+ q:'"Did your parents buy the video game?" - Correct NEGATIVE answer:',
+ opts:['No, they not did.','No, they didnt.','No, they did not.','No, they not.'],ans:2,
+ concept:'Simple Past Short Answers ❓',emoji:'🎮',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e35',type:'reorder',
+ q:'Put the words in order to make a question:',
+ letters:['soccer','Did','play','you','?'],answer:'Did you play soccer ?',
+ concept:'Simple Past Questions ❓',emoji:'⚽',explain:'',example:'',
+ cardType:'grammar',html:''},
+
+{id:'e36',type:'reorder',
+ q:'Put the words in order to make a question:',
+ letters:['have','What','you','did','for','breakfast','?'],answer:'What did you have for breakfast ?',
+ concept:'Simple Past Questions ❓',emoji:'🥞',explain:'',example:'',
+ cardType:'grammar',html:''}
 ]
 };
 
@@ -880,7 +1191,9 @@ async function loadTakenAvatarsFromDB() {
     var all = await fbGetAll('players');
     var taken = {};
     all.forEach(function(d) {
-      if(d && d.name && d.avIdx !== undefined) taken[d.name] = d.avIdx;
+      if(d && d.name && d.avIdx !== undefined) {
+        taken[d.name] = parseInt(d.avIdx) || 0;
+      }
     });
     return taken;
   } catch(e) { return {}; }
@@ -889,15 +1202,637 @@ async function loadTakenAvatarsFromDB() {
 // ════════════════════════════════
 // INIT
 // ════════════════════════════════
+
+
+// ════════════════════════════════
+// MINI-CLASS BUILDERS PER SUBJECT
+// ════════════════════════════════
+
+function buildSubjMiniClass(subj) {
+  if(subj==='eng') return buildEngMiniClass();
+  if(subj==='lang') return buildLangMiniClass();
+  if(subj==='mat') return buildMatMiniClass();
+  if(subj==='sci') return buildSciMiniClass();
+  return [];
+}
+
+// ── LENGUAJES ──
+function buildLangMiniClass() {
+  function slide(emoji, concept, question, qType, options, correctIdx, explanation) {
+    var optsHtml = '';
+    if(options && options.length) {
+      optsHtml = '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">'+
+        options.map(function(o,i){
+          var isCorrect = i === correctIdx;
+          return '<div style="background:'+(isCorrect?'rgba(0,230,118,.15)':'rgba(255,255,255,.06)')+';border:2px solid '+(isCorrect?'var(--g)':'rgba(255,255,255,.15)')+';border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:'+(isCorrect?'#b9ffda':'rgba(255,255,255,.7)')+';display:flex;align-items:center;gap:8px;">'+
+            '<span style="font-family:Courier New,monospace;font-size:10px;background:rgba(255,255,255,.1);border-radius:4px;padding:2px 6px;">'+String.fromCharCode(65+i)+'</span>'+o+
+            (isCorrect?' <span style="margin-left:auto;font-size:16px;">✅</span>':'')+
+          '</div>';
+        }).join('')+
+      '</div>';
+    }
+    return {
+      cardType:'grammar', concept:concept, emoji:emoji,
+      html:'<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+        // Question box - exact from guía
+        '<div style="background:rgba(255,255,255,.07);border:2px solid rgba(255,138,101,.4);border-radius:12px;padding:14px 14px;">'+
+          '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);margin-bottom:8px;letter-spacing:1px;">📋 REACTIVO DE LA GUÍA</div>'+
+          '<div style="font-size:15px;font-weight:900;color:white;line-height:1.5;">'+question+'</div>'+
+          optsHtml+
+        '</div>'+
+        // Explanation
+        '<div style="background:rgba(255,138,101,.08);border:2px solid rgba(255,138,101,.25);border-radius:12px;padding:12px 14px;">'+
+          '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);margin-bottom:7px;letter-spacing:1px;">💡 EXPLICACIÓN</div>'+
+          explanation+
+        '</div>'+
+      '</div>'
+    };
+  }
+
+  return [
+    slide('🔤','Aliteración',
+      '¿Qué es una aliteración?',
+      'mc',
+      ['La comparación entre dos elementos','La sucesión de sonidos iguales o parecidos','La exageración de cualidades'],
+      1,
+      '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">La <span style="color:var(--lang);">aliteración</span> es la repetición del mismo sonido en varias palabras de un verso.<br><br>'+
+      '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 12px;font-style:italic;">"Bajo el <span style="color:var(--y);">a</span><span style="color:var(--lang);">l</span>a <span style="color:var(--lang);">l</span>eve de<span style="color:var(--lang);">l</span> <span style="color:var(--lang);">l</span>eve abanico"<br><span style="font-size:11px;color:rgba(255,255,255,.5);">👂 Escucha la L repetida muchas veces</span></div></div>'
+    ),
+    slide('💬','Lenguaje Literal vs Figurado',
+      '¿Cuál verso usa lenguaje FIGURADO para "Disfruto escuchar tu risa"?',
+      'mc',
+      ['Me gusta cuando te ríes','Tu sonrisa es canto del viento','Escuchar tu risa me alegra'],
+      1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+      '<div style="background:rgba(0,230,118,.1);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--g);margin-bottom:4px;">✅ LITERAL</div><div style="font-size:12px;color:white;font-weight:700;line-height:1.6;">Dice las cosas TAL COMO SON.<br><em>"Me gusta tu risa"</em></div></div>'+
+      '<div style="background:rgba(213,0,249,.1);border:2px solid rgba(213,0,249,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--pu);margin-bottom:4px;">🌟 FIGURADO</div><div style="font-size:12px;color:white;font-weight:700;line-height:1.6;">Usa metáforas y comparaciones.<br><em>"Tu risa es canto del viento"</em></div></div>'+
+      '</div>'
+    ),
+    slide('🎭','Textos Dramáticos',
+      '¿Cuál es la característica principal de los textos dramáticos?',
+      'mc',
+      ['Son escritos para representarse en un escenario frente a un público','Se publican en los periódicos','Se presentan como series o películas'],
+      0,
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">'+
+      '<div style="background:rgba(255,138,101,.12);border:1px solid rgba(255,138,101,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">💬</div><div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);">DIÁLOGOS</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:3px;">Lo que dicen los personajes</div></div>'+
+      '<div style="background:rgba(255,138,101,.12);border:1px solid rgba(255,138,101,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">🎬</div><div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);">ACOTACIONES</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:3px;">Instrucciones del autor</div></div>'+
+      '<div style="background:rgba(255,138,101,.12);border:1px solid rgba(255,138,101,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">🎪</div><div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);">ACTOS Y ESCENAS</div><div style="font-size:11px;color:rgba(255,255,255,.7);margin-top:3px;">Partes de la obra</div></div>'+
+      '</div>'
+    ),
+    slide('🎭','Juegos de Palabras y Performance',
+      'Son textos que hacen uso continuo de juegos de palabras, EXCEPTO uno. ¿Cuál es?',
+      'mc',
+      ['Novelas','Trabalenguas','Adivinanzas'],
+      0,
+      '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">'+
+      '🎭 <span style="color:var(--lang);">Performance:</span> Teatro + improvisación + público<br>'+
+      '📦 <span style="color:var(--lang);">Libros cartoneros:</span> Hechos a mano con cartón decorado<br>'+
+      '🎲 <span style="color:var(--lang);">Juegos de rol:</span> Simulan situaciones tomando el papel de un personaje<br>'+
+      '🃏 <span style="color:var(--lang);">Juegos de palabras:</span> Usan sonidos y doble sentido — ej: <em>"El que tenga tienda que la atienda"</em></div>'
+    ),
+    slide('🖼️','Caligrama y Nube de Palabras',
+      '¿Cuál de las siguientes imágenes es un caligrama?',
+      'mc',
+      ['La imagen donde palabras forman una figura (ej: un perro)','La imagen con palabras de distintos tamaños sobre un tema'],
+      0,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+      '<div style="background:rgba(0,229,255,.1);border:2px solid rgba(0,229,255,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--cy);margin-bottom:4px;">🖼️ CALIGRAMA</div><div style="font-size:12px;color:white;font-weight:700;line-height:1.6;">Las palabras forman <span style="color:var(--cy);">la figura</span> de lo que describen. Ej: palabras en forma de perro 🐕</div></div>'+
+      '<div style="background:rgba(0,229,255,.1);border:2px solid rgba(0,229,255,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--cy);margin-bottom:4px;">☁️ NUBE DE PALABRAS</div><div style="font-size:12px;color:white;font-weight:700;line-height:1.6;">Palabras de <span style="color:var(--cy);">distintos tamaños</span> sobre un tema. Las más importantes van más grandes.</div></div>'+
+      '</div>'
+    ),
+  ];
+}
+
+// ── MATEMÁTICAS ──
+function buildMatMiniClass() {
+  function slide(emoji, concept, html) {
+    return {cardType:'grammar', concept:concept, emoji:emoji, html:html};
+  }
+  function section(title, color, body){
+    return '<div style="background:'+color+'11;border:2px solid '+color+'44;border-radius:10px;padding:10px 12px;margin-bottom:8px;">'+
+      '<div style="font-family:Courier New,monospace;font-size:9px;font-weight:900;color:'+color+';margin-bottom:7px;letter-spacing:1px;">'+title+'</div>'+body+'</div>';
+  }
+
+  return [
+    // Slide 1: División
+    slide('➗','División y Multiplicación',
+      section('➗ DIVISIÓN: Repartir en partes iguales','var(--mat)',
+        '<div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;">'+
+        '<span style="background:rgba(79,195,247,.2);border:2px solid var(--mat);border-radius:7px;padding:7px 11px;font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--mat);">TOTAL</span>'+
+        '<span style="color:rgba(255,255,255,.4);font-size:20px;padding:4px;">÷</span>'+
+        '<span style="background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:7px;padding:7px 11px;font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--g);">GRUPOS</span>'+
+        '<span style="color:rgba(255,255,255,.4);font-size:20px;padding:4px;">=</span>'+
+        '<span style="background:rgba(255,214,0,.2);border:2px solid var(--y);border-radius:7px;padding:7px 11px;font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--y);">RESULTADO</span>'+
+        '</div>'+
+        '<div style="display:flex;flex-direction:column;gap:6px;">'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🌱 12 litros ÷ 6 días <span style="color:var(--y);">= 2 litros/día</span></div>'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🐶 30 latas ÷ 5 perros <span style="color:var(--y);">= 6 latas c/u</span></div>'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🌿 72 hojas ÷ 6 equipos <span style="color:var(--y);">= 12 hojas c/u</span></div>'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🍕 12 porciones ÷ 4 personas <span style="color:var(--y);">= 3 c/u</span></div>'+
+        '</div>'
+      )+
+      section('✖️ MULTIPLICACIÓN: Grupos iguales','var(--g)',
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🥦 2 porciones × 7 platos <span style="color:var(--y);">= 14 porciones</span></div>'
+      )
+    ),
+
+    // Slide 2: Medidas
+    slide('⚖️','Unidades de Medida',
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">'+
+      '<div style="background:rgba(79,195,247,.12);border:2px solid var(--mat);border-radius:12px;padding:12px;text-align:center;">'+
+        '<div style="font-size:32px;margin-bottom:6px;">⚖️</div>'+
+        '<div style="font-family:Courier New,monospace;font-size:10px;color:var(--mat);margin-bottom:6px;">MASA</div>'+
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">kilogramo<br><span style="color:var(--y);">1 kg = 1,000 g</span></div>'+
+      '</div>'+
+      '<div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:12px;padding:12px;text-align:center;">'+
+        '<div style="font-size:32px;margin-bottom:6px;">📏</div>'+
+        '<div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin-bottom:6px;">LONGITUD</div>'+
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">metro<br><span style="color:var(--y);">🦒 = metros</span></div>'+
+      '</div>'+
+      '<div style="background:rgba(100,181,246,.12);border:2px solid var(--eng);border-radius:12px;padding:12px;text-align:center;">'+
+        '<div style="font-size:32px;margin-bottom:6px;">💧</div>'+
+        '<div style="font-family:Courier New,monospace;font-size:10px;color:var(--eng);margin-bottom:6px;">VOLUMEN</div>'+
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">litro<br><span style="color:var(--y);">1 L = 1,000 ml</span></div>'+
+      '</div>'+
+      '</div>'+
+      section('⚖️ FRACCIONES DE KILOGRAMO','var(--y)',
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;">'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">¼</div><div style="font-size:13px;color:white;font-weight:900;margin-top:3px;">250 g</div></div>'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">½</div><div style="font-size:13px;color:white;font-weight:900;margin-top:3px;">500 g</div></div>'+
+        '<div style="background:rgba(0,230,118,.15);border:2px solid var(--g);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">¾</div><div style="font-size:13px;color:var(--g);font-weight:900;margin-top:3px;">750 g ✅</div></div>'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">1</div><div style="font-size:13px;color:white;font-weight:900;margin-top:3px;">1,000 g</div></div>'+
+        '</div>'
+      )
+    ),
+
+    // Slide 3: Figuras y cuerpos geométricos
+    slide('📐','Figuras y Cuerpos Geométricos',
+      section('📐 FIGURAS GEOMÉTRICAS — 2D (planas)','var(--mat)',
+        '<div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:7px;">Solo tienen <span style="color:var(--mat);">largo y ancho</span></div>'+
+        '<div style="display:flex;gap:7px;flex-wrap:wrap;">'+
+        ['🟦 Cuadrado','🔺 Triángulo','⭕ Círculo','▭ Rectángulo','⬡ Hexágono'].map(function(f){
+          return '<span style="background:rgba(79,195,247,.12);border:1px solid rgba(79,195,247,.3);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:800;color:white;">'+f+'</span>';
+        }).join('')+
+        '</div>'+
+        '<div style="margin-top:8px;font-size:13px;font-weight:800;color:white;line-height:1.7;">📍 <span style="color:var(--y);">VÉRTICE:</span> punto donde se unen 2 lados<br>⚖️ <span style="color:var(--y);">EJE DE SIMETRÍA:</span> línea que divide en 2 partes iguales</div>'
+      )+
+      section('📦 CUERPOS GEOMÉTRICOS — 3D','var(--g)',
+        '<div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:7px;">Tienen <span style="color:var(--g);">largo + alto + ancho</span></div>'+
+        '<div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:7px;">'+
+        ['📦 Cubo','🥫 Cilindro','⚽ Esfera','🔺 Pirámide'].map(function(f){
+          return '<span style="background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.3);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:800;color:white;">'+f+'</span>';
+        }).join('')+
+        '</div>'+
+        '<div style="font-size:13px;font-weight:800;color:white;">❄️ <span style="color:var(--y);">Fractales:</span> figuras que se repiten a distintas escalas</div>'
+      )
+    ),
+
+    // Slide 4: Datos y gráficas
+    slide('📊','Tablas, Pictogramas y Datos',
+      section('📋 TABLA DE DATOS','var(--mat)',
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">Sirve para <span style="color:var(--mat);">registrar datos</span> de una investigación de forma ordenada.</div>'
+      )+
+      section('🖼️ PICTOGRAMA','var(--pu)',
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">Representación de información mediante <span style="color:var(--pu);">imágenes</span> que muestran cantidades.<br><br>'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:10px;font-size:14px;line-height:2;">'+
+        '🍎 🍎 🍎 = <span style="color:var(--y);">6 manzanas</span><br>'+
+        '🍌 🍌 = <span style="color:var(--y);">4 plátanos</span><br>'+
+        '🍊 🍊 🍊 🍊 = <span style="color:var(--y);">8 naranjas</span>'+
+        '</div>'+
+        '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:5px;">Cada imagen = 2 frutas</div>'+
+        '</div>'
+      )+
+      section('📐 DESARROLLO PLANO','var(--g)',
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">Cómo queda una figura 3D si la <span style="color:var(--g);">abres y aplanas</span>.<br>Como abrir una caja de cereal 📦</div>'
+      )
+    )
+  ];
+}
+
+// ── CIENCIAS ──
+function buildSciMiniClass() {
+  function slide(emoji, concept, question, options, correctIdx, explanation) {
+    var optsHtml = '';
+    if(options && options.length) {
+      optsHtml = '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">'+
+        options.map(function(o,i){
+          var isCorrect = i === correctIdx;
+          return '<div style="background:'+(isCorrect?'rgba(0,230,118,.15)':'rgba(255,255,255,.06)')+';border:2px solid '+(isCorrect?'var(--g)':'rgba(255,255,255,.15)')+';border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;color:'+(isCorrect?'#b9ffda':'rgba(255,255,255,.7)')+';display:flex;align-items:center;gap:8px;">'+
+            '<span style="font-family:Courier New,monospace;font-size:10px;background:rgba(255,255,255,.1);border-radius:4px;padding:2px 6px;">'+String.fromCharCode(65+i)+'</span>'+o+
+            (isCorrect?' <span style="margin-left:auto;font-size:16px;">✅</span>':'')+
+          '</div>';
+        }).join('')+
+      '</div>';
+    }
+    return {
+      cardType:'grammar', concept:concept, emoji:emoji,
+      html:'<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+        '<div style="background:rgba(255,255,255,.07);border:2px solid rgba(105,240,174,.4);border-radius:12px;padding:14px;">'+
+          '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:8px;letter-spacing:1px;">📋 REACTIVO DE LA GUÍA</div>'+
+          '<div style="font-size:15px;font-weight:900;color:white;line-height:1.5;">'+question+'</div>'+
+          optsHtml+
+        '</div>'+
+        '<div style="background:rgba(105,240,174,.08);border:2px solid rgba(105,240,174,.25);border-radius:12px;padding:12px 14px;">'+
+          '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:7px;letter-spacing:1px;">💡 EXPLICACIÓN</div>'+
+          explanation+
+        '</div>'+
+      '</div>'
+    };
+  }
+
+  return [
+    slide('⚖️','Unidades de Medida',
+      'Es la unidad de medida de la masa.',
+      ['Kilogramo','Litro','Metro'], 0,
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;">'+
+      '<div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:8px;padding:9px;text-align:center;"><div style="font-size:28px;">⚖️</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin:4px 0;">KILOGRAMO</div><div style="font-size:11px;color:white;font-weight:700;">Mide la MASA<br><span style="color:var(--y);">1 kg = 1,000 g</span></div></div>'+
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:9px;text-align:center;"><div style="font-size:28px;">💧</div><div style="font-family:Courier New,monospace;font-size:10px;color:rgba(255,255,255,.4);margin:4px 0;">LITRO</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;">Mide LIQUIDOS</div></div>'+
+      '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:9px;text-align:center;"><div style="font-size:28px;">📏</div><div style="font-family:Courier New,monospace;font-size:10px;color:rgba(255,255,255,.4);margin:4px 0;">METRO</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;">Mide LONGITUD</div></div>'+
+      '</div>'
+    ),
+    slide('🧪','Solubilidad',
+      '¿Cómo se llama la capacidad que tiene una sustancia para disolverse en otra?',
+      ['Densidad','Solubilidad','Volumen'], 1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">'+
+      '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:10px;padding:10px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--g);margin-bottom:5px;">✅ SOLUBLE</div>'+
+      '<div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">🍬 Azúcar<br>🧂 Sal<br><span style="color:var(--g);font-size:11px;">Se disuelve en agua</span></div></div>'+
+      '<div style="background:rgba(255,23,68,.1);border:2px solid rgba(255,23,68,.25);border-radius:10px;padding:10px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--r);margin-bottom:5px;">❌ INSOLUBLE</div>'+
+      '<div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">🪵 Madera<br>🏖️ Arena<br><span style="color:var(--r);font-size:11px;">NO se disuelve</span></div></div>'+
+      '</div>'+
+      '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;color:white;">🍋 Preparar limonada = azúcar + agua <span style="color:var(--g);">→ solubilidad en acción!</span></div>'
+    ),
+    slide('💪','Fuerza y Movimiento',
+      'La _______ es aquello que puede mover un objeto, detenerlo, hacer que cambie de dirección o incluso deformarlo.',
+      ['Energía','Fuerza','Masa'], 1,
+      '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;margin-bottom:8px;">La <span style="color:var(--sci);">FUERZA</span> puede:<br>'+
+      '➡️ <span style="color:var(--y);">Mover</span> un objeto &nbsp; ⏹️ <span style="color:var(--y);">Detenerlo</span><br>'+
+      '↩️ <span style="color:var(--y);">Cambiar dirección</span> &nbsp; 🥫 <span style="color:var(--y);">Deformarlo</span></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">'+
+      '<div style="background:rgba(105,240,174,.1);border:1px solid rgba(105,240,174,.3);border-radius:8px;padding:8px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:4px;">🏃 TRAYECTORIA</div><div style="font-size:12px;color:white;font-weight:700;">Camino que recorre un objeto al moverse 🏀</div></div>'+
+      '<div style="background:rgba(105,240,174,.1);border:1px solid rgba(105,240,174,.3);border-radius:8px;padding:8px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:4px;">🔨 DEFORMACIÓN</div><div style="font-size:12px;color:white;font-weight:700;">Cambio en la forma de un objeto por una fuerza</div></div>'+
+      '</div>'
+    ),
+    slide('🌍','Movimientos de la Tierra',
+      '¿Qué fenómeno es provocado por el movimiento de rotación de la Tierra?',
+      ['Las estaciones del año','El día y la noche','Los eclipses'], 1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+      '<div style="background:rgba(255,214,0,.1);border:2px solid rgba(255,214,0,.3);border-radius:10px;padding:10px;">'+
+        '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--y);margin-bottom:5px;">🌀 ROTACIÓN</div>'+
+        '<div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">Tierra gira sobre su <span style="color:var(--y);">propio eje</span><br>Como un trompo 🌀<br>⏱️ 24 horas<br>Causa: <span style="color:var(--y);">DÍA y NOCHE ☀️🌙</span></div>'+
+      '</div>'+
+      '<div style="background:rgba(255,214,0,.1);border:2px solid rgba(255,214,0,.3);border-radius:10px;padding:10px;">'+
+        '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--y);margin-bottom:5px;">☀️ TRASLACIÓN</div>'+
+        '<div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">Tierra viaja alrededor del <span style="color:var(--y);">Sol</span><br>📅 365 días<br>Causa: <span style="color:var(--y);">4 ESTACIONES 🌸☀️🍂❄️</span></div>'+
+      '</div>'+
+      '</div>'
+    ),
+    slide('🌙','Fases de la Luna',
+      '¿Cuántas fases principales tiene la luna durante su ciclo?',
+      ['Ocho','Tres','Una'], 0,
+      '<div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;">'+
+      [
+        {moon:'🌑',name:'Nueva'},
+        {moon:'🌒',name:'Creciente'},
+        {moon:'🌓',name:'Cuarto C.'},
+        {moon:'🌔',name:'Gibosa C.'},
+        {moon:'🌕',name:'Llena'},
+        {moon:'🌖',name:'Gibosa M.'},
+        {moon:'🌗',name:'Cuarto M.'},
+        {moon:'🌘',name:'Menguante'}
+      ].map(function(f){
+        return '<div style="text-align:center;background:rgba(0,0,0,.3);border-radius:8px;padding:6px 8px;min-width:50px;">'+
+          '<div style="font-size:26px;">'+f.moon+'</div>'+
+          '<div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px;">'+f.name+'</div>'+
+        '</div>';
+      }).join('')+
+      '</div>'+
+      '<div style="background:rgba(105,240,174,.1);border:2px solid rgba(105,240,174,.25);border-radius:8px;padding:9px;text-align:center;font-size:14px;font-weight:900;color:white;">🌙 <span style="color:var(--sci);">8 FASES</span> en total en el ciclo lunar</div>'
+    ),
+    slide('🌿','Longitud y Masa',
+      'La _______ es la distancia que hay entre dos puntos.',
+      ['Masa','Longitud','Velocidad'], 1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+      '<div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:10px;padding:10px;text-align:center;">'+
+        '<div style="font-size:32px;margin-bottom:5px;">📏</div>'+
+        '<div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin-bottom:4px;">LONGITUD</div>'+
+        '<div style="font-size:13px;color:white;font-weight:800;line-height:1.6;">Distancia entre 2 puntos<br>Se mide en <span style="color:var(--y);">METROS</span><br>🦒 = 5 metros</div>'+
+      '</div>'+
+      '<div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:10px;padding:10px;text-align:center;">'+
+        '<div style="font-size:32px;margin-bottom:5px;">⚖️</div>'+
+        '<div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin-bottom:4px;">MASA</div>'+
+        '<div style="font-size:13px;color:white;font-weight:800;line-height:1.6;">Cantidad de materia<br>Se mide en <span style="color:var(--y);">KILOGRAMOS</span><br>1 kg = 1,000 g</div>'+
+      '</div>'+
+      '</div>'
+    ),
+  ];
+}
+
+
+// ════════════════════════════════
+// ENGLISH MINI-CLASS — 5 full slides
+// ════════════════════════════════
+function buildEngMiniClass() {
+  return [
+    // ── SLIDE 1: Countries ──
+    (function(){
+      var countries = [
+        {key:'australia',  name:'AUSTRALIA'},
+        {key:'egypt',      name:'EGYPT'},
+        {key:'mexico',     name:'MEXICO'},
+        {key:'china',      name:'CHINA'},
+        {key:'spain',      name:'SPAIN'},
+        {key:'brazil',     name:'BRAZIL'},
+        {key:'argentina',  name:'ARGENTINA'},
+        {key:'chile',      name:'CHILE'},
+        {key:'india',      name:'INDIA'},
+        {key:'turkey',     name:'TURKEY'}
+      ];
+      var rows = countries.map(function(c){
+        var letters = c.name.split('').map(function(l){
+          return '<div style="min-width:16px;height:20px;background:rgba(100,181,246,.25);border:1px solid var(--eng);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--eng);padding:0 2px;">'+l+'</div>';
+        }).join('');
+        var flagImg = FLAG_IMGS[c.key]
+          ? '<img src="'+FLAG_IMGS[c.key]+'" style="width:54px;height:36px;object-fit:cover;border-radius:5px;border:1px solid rgba(255,255,255,.2);flex-shrink:0;">'
+          : '<span style="font-size:28px;">🏳️</span>';
+        return '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:10px;padding:10px;display:flex;align-items:center;gap:10px;">'+
+          flagImg+
+          '<div style="flex:1;">'+
+            '<div style="font-family:Courier New,monospace;font-size:12px;font-weight:900;color:white;margin-bottom:5px;">'+c.name+'</div>'+
+            '<div style="display:flex;gap:3px;flex-wrap:wrap;">'+letters+'</div>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+      return {
+        cardType:'grammar',
+        concept:'Countries Vocabulary',
+        emoji:'🌍',
+        html:'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;">'+rows+'</div>'
+      };
+    })(),
+    // ── SLIDE 2: Weather Words ──
+    {
+      cardType:'grammar',
+      concept:'Weather Words',
+      emoji:'⛅',
+      html:
+        '<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+        [
+          {em:'🌫️',w:'FOGGY',d:'Cannot see far — thick air near the ground'},
+          {em:'⛈️',w:'THUNDERSTORM',d:'Lightning + thunder + heavy rain'},
+          {em:'🌧️',w:'RAINY',d:'Water falling from the sky'},
+          {em:'💨',w:'WINDY',d:'Strong air movement'},
+          {em:'☁️',w:'CLOUDY',d:'Grey sky full of clouds — no rain yet'}
+        ].map(function(item){
+          var letters = item.w.split('').map(function(l){
+            return '<div style="width:20px;height:20px;background:rgba(100,181,246,.2);border:1px solid var(--eng);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--eng);">'+l+'</div>';
+          }).join('');
+          return '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">'+
+            '<span style="font-size:36px;flex-shrink:0;">'+item.em+'</span>'+
+            '<div style="flex:1;">'+
+              '<div style="font-family:Courier New,monospace;font-size:15px;font-weight:900;color:white;margin-bottom:5px;">'+item.w+'</div>'+
+              '<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px;">'+letters+'</div>'+
+              '<div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:700;">'+item.d+'</div>'+
+            '</div>'+
+          '</div>';
+        }).join('')+
+        '</div>'
+    },
+
+    // ── SLIDE 3: Going To ──
+    {
+      cardType:'grammar',
+      concept:'Going To — Future',
+      emoji:'🔮',
+      html:
+        '<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+        // Formula
+        '<div style="background:rgba(0,0,0,.3);border-radius:10px;padding:10px 12px;text-align:center;">'+
+          '<div style="font-size:11px;color:rgba(255,255,255,.45);font-family:Courier New,monospace;margin-bottom:6px;">FORMULA</div>'+
+          '<div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;">'+
+            '<span style="background:rgba(100,181,246,.2);border:2px solid var(--eng);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--eng);">Subject</span>'+
+            '<span style="color:rgba(255,255,255,.3);font-size:18px;padding:4px;">+</span>'+
+            '<span style="background:rgba(255,214,0,.2);border:2px solid var(--y);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--y);">AM/IS/ARE</span>'+
+            '<span style="color:rgba(255,255,255,.3);font-size:18px;padding:4px;">+</span>'+
+            '<span style="background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--g);">GOING TO</span>'+
+            '<span style="color:rgba(255,255,255,.3);font-size:18px;padding:4px;">+</span>'+
+            '<span style="background:rgba(213,0,249,.2);border:2px solid var(--pu);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--pu);">verb</span>'+
+          '</div>'+
+        '</div>'+
+        // Pronouns table
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">'+
+          '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:3px;">I</div><div style="font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--g);">AM</div></div>'+
+          '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:3px;">He / She / It</div><div style="font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--g);">IS</div></div>'+
+          '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:3px;">We / You / They</div><div style="font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--g);">ARE</div></div>'+
+        '</div>'+
+        // Examples
+        '<div style="background:rgba(0,230,118,.1);border:2px solid rgba(0,230,118,.3);border-radius:10px;padding:10px 12px;">'+
+          '<div style="font-size:10px;color:var(--g);font-family:Courier New,monospace;margin-bottom:6px;">✅ AFFIRMATIVE</div>'+
+          '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">I <span style="color:var(--y);font-family:Courier New,monospace;">AM</span> going to study.<br>She <span style="color:var(--y);font-family:Courier New,monospace;">IS</span> going to dance.<br>They <span style="color:var(--y);font-family:Courier New,monospace;">ARE</span> going to play.</div>'+
+        '</div>'+
+        '<div style="background:rgba(255,23,68,.1);border:2px solid rgba(255,23,68,.25);border-radius:10px;padding:10px 12px;">'+
+          '<div style="font-size:10px;color:var(--r);font-family:Courier New,monospace;margin-bottom:6px;">❌ NEGATIVE</div>'+
+          '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">I am <span style="color:#ff8a80;font-family:Courier New,monospace;">NOT</span> going to study.<br>She is <span style="color:#ff8a80;font-family:Courier New,monospace;">NOT</span> going to dance.</div>'+
+        '</div>'+
+        '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:10px;padding:10px 12px;">'+
+          '<div style="font-size:10px;color:var(--eng);font-family:Courier New,monospace;margin-bottom:6px;">❓ QUESTION & SHORT ANSWERS</div>'+
+          '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;"><span style="color:var(--eng);font-family:Courier New,monospace;">ARE</span> you going to swim?<br>✅ Yes, I <span style="color:var(--y);font-family:Courier New,monospace;">AM</span>. &nbsp; ❌ No, I am <span style="color:#ff8a80;font-family:Courier New,monospace;">NOT</span>.</div>'+
+        '</div>'+
+        '</div>'
+    },
+
+    // ── SLIDE 4: Past Tense Verbs ──
+    {
+      cardType:'grammar',
+      concept:'Past Tense Verbs',
+      emoji:'📝',
+      html:
+        '<div style="display:flex;flex-direction:column;gap:8px;width:100%;">'+
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">'+
+          '<div style="font-family:Courier New,monospace;font-size:10px;font-weight:900;color:rgba(100,181,246,.7);padding:4px 8px;">INFINITIVE</div>'+
+          '<div style="font-family:Courier New,monospace;font-size:10px;font-weight:900;color:rgba(0,230,118,.7);padding:4px 8px;">PAST TENSE</div>'+
+        '</div>'+
+        '<div style="background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.2);border-radius:6px;padding:4px 8px;font-size:10px;font-family:Courier New,monospace;color:var(--y);">⚠️ IRREGULAR — they change completely!</div>'+
+        [
+          {inf:'GIVE',past:'GAVE',es:'dar'},
+          {inf:'GO',past:'WENT',es:'ir'},
+          {inf:'WAKE UP',past:'WOKE UP',es:'despertar'},
+          {inf:'SAY',past:'SAID',es:'decir'},
+          {inf:'FEEL',past:'FELT',es:'sentir'},
+          {inf:'SEE',past:'SAW',es:'ver'},
+          {inf:'FLY',past:'FLEW',es:'volar'}
+        ].map(function(v){
+          return '<div style="display:grid;grid-template-columns:1fr auto 1fr auto;align-items:center;gap:6px;background:rgba(100,181,246,.08);border:1px solid rgba(100,181,246,.2);border-radius:8px;padding:8px 10px;">'+
+            '<div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--eng);">'+v.inf+'</div>'+
+            '<div style="color:rgba(255,255,255,.3);font-size:14px;">→</div>'+
+            '<div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">'+v.past+'</div>'+
+            '<div style="font-size:11px;color:rgba(255,255,255,.4);">('+v.es+')</div>'+
+          '</div>';
+        }).join('')+
+        '<div style="background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.2);border-radius:6px;padding:4px 8px;font-size:10px;font-family:Courier New,monospace;color:var(--y);">✅ REGULAR — just add -ED!</div>'+
+        [
+          {inf:'VISIT',past:'VISITED',es:'visitar'},
+          {inf:'PLAY',past:'PLAYED',es:'jugar'},
+          {inf:'OPEN',past:'OPENED',es:'abrir'},
+          {inf:'STAY',past:'STAYED',es:'quedarse'},
+          {inf:'CALL',past:'CALLED',es:'llamar'}
+        ].map(function(v){
+          return '<div style="display:grid;grid-template-columns:1fr auto 1fr auto;align-items:center;gap:6px;background:rgba(255,214,0,.07);border:1px solid rgba(255,214,0,.2);border-radius:8px;padding:8px 10px;">'+
+            '<div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--y);">'+v.inf+'</div>'+
+            '<div style="color:rgba(255,255,255,.3);font-size:14px;">→</div>'+
+            '<div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">'+v.past+'</div>'+
+            '<div style="font-size:11px;color:rgba(255,255,255,.4);">('+v.es+')</div>'+
+          '</div>';
+        }).join('')+
+        '</div>'
+    },
+
+    // ── SLIDE 5: Simple Past Questions ──
+    {
+      cardType:'grammar',
+      concept:'Simple Past Questions',
+      emoji:'❓',
+      html:
+        '<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+        // Formula
+        '<div style="background:rgba(0,0,0,.3);border-radius:10px;padding:10px 12px;text-align:center;">'+
+          '<div style="font-size:11px;color:rgba(255,255,255,.45);font-family:Courier New,monospace;margin-bottom:6px;">FORMULA</div>'+
+          '<div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;">'+
+            '<span style="background:rgba(255,214,0,.2);border:2px solid var(--y);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--y);">DID</span>'+
+            '<span style="color:rgba(255,255,255,.3);font-size:18px;padding:4px;">+</span>'+
+            '<span style="background:rgba(100,181,246,.2);border:2px solid var(--eng);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--eng);">subject</span>'+
+            '<span style="color:rgba(255,255,255,.3);font-size:18px;padding:4px;">+</span>'+
+            '<span style="background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--g);">base verb</span>'+
+            '<span style="color:var(--eng);font-size:20px;padding:2px;">?</span>'+
+          '</div>'+
+        '</div>'+
+        // YES/NO Questions
+        '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:10px;padding:10px 12px;">'+
+          '<div style="font-size:10px;color:var(--eng);font-family:Courier New,monospace;margin-bottom:7px;">❓ YES / NO QUESTIONS</div>'+
+          '<div style="font-size:13px;font-weight:800;color:white;line-height:2;">'+
+            '<span style="color:var(--y);font-family:Courier New,monospace;">DID</span> you play soccer?<br>'+
+            '<span style="color:var(--y);font-family:Courier New,monospace;">DID</span> she call you?<br>'+
+            '<span style="color:var(--y);font-family:Courier New,monospace;">DID</span> they go to the park?'+
+          '</div>'+
+        '</div>'+
+        // Short answers
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+          '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:10px;padding:10px;">'+
+            '<div style="font-size:10px;color:var(--g);font-family:Courier New,monospace;margin-bottom:5px;">✅ YES</div>'+
+            '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">Yes, I <span style="color:var(--y);font-family:Courier New,monospace;">DID</span>.<br>Yes, she <span style="color:var(--y);font-family:Courier New,monospace;">DID</span>.<br>Yes, they <span style="color:var(--y);font-family:Courier New,monospace;">DID</span>.</div>'+
+          '</div>'+
+          '<div style="background:rgba(255,23,68,.1);border:2px solid rgba(255,23,68,.25);border-radius:10px;padding:10px;">'+
+            '<div style="font-size:10px;color:var(--r);font-family:Courier New,monospace;margin-bottom:5px;">❌ NO</div>'+
+            '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">No, I <span style="color:#ff8a80;font-family:Courier New,monospace;">DID NOT</span>.<br>No, she <span style="color:#ff8a80;font-family:Courier New,monospace;">DID NOT</span>.<br>No, they <span style="color:#ff8a80;font-family:Courier New,monospace;">DID NOT</span>.</div>'+
+          '</div>'+
+        '</div>'+
+        // WH Questions
+        '<div style="background:rgba(213,0,249,.1);border:2px solid rgba(213,0,249,.3);border-radius:10px;padding:10px 12px;">'+
+          '<div style="font-size:10px;color:var(--pu);font-family:Courier New,monospace;margin-bottom:7px;">🔵 WH QUESTIONS</div>'+
+          '<div style="font-size:13px;font-weight:800;color:white;line-height:2;">'+
+            '<span style="color:var(--pu);font-family:Courier New,monospace;">What</span> did you have for breakfast?<br>'+
+            '<span style="color:var(--pu);font-family:Courier New,monospace;">Where</span> did you stay?<br>'+
+            '<span style="color:var(--pu);font-family:Courier New,monospace;">Who</span> did you go with?<br>'+
+            '<span style="color:var(--pu);font-family:Courier New,monospace;">How long</span> did you stay?'+
+          '</div>'+
+        '</div>'+
+        '</div>'
+    }
+  ];
+}
+
+
+// ════════════════════════════════
+// NAME INPUT — check existing player
+// ════════════════════════════════
+var nameCheckTimer = null;
+function onNameInput(val) {
+  clearTimeout(nameCheckTimer);
+  var hint = document.getElementById('nameHint');
+  if(!hint) return;
+  if(!val || val.trim().length < 2) { hint.innerHTML = ''; return; }
+  hint.innerHTML = '<div style="color:rgba(255,255,255,.3);font-size:11px;font-weight:800;">Buscando...</div>';
+  nameCheckTimer = setTimeout(async function() {
+    try {
+      var data = await fbGet('players', val.trim());
+      if(data && data.av) {
+        // Player exists - show their avatar and welcome back
+        hint.innerHTML =
+          '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">'+
+          '<span style="font-size:36px;">'+data.av+'</span>'+
+          '<div>'+
+            '<div style="font-family:Courier New,monospace;font-size:10px;color:var(--g);margin-bottom:3px;">BIENVENIDO DE VUELTA!</div>'+
+            '<div style="font-size:13px;font-weight:900;color:white;">'+val.trim()+'</div>'+
+            '<div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;">'+
+              '⭐ '+( data.xp||0)+' XP &nbsp; 🪙 '+(data.coins||0)+' monedas'+
+            '</div>'+
+          '</div>'+
+          '</div>';
+        // Pre-select their avatar
+        if(data.avIdx !== undefined) {
+          var idx = parseInt(data.avIdx);
+          if(!isNaN(idx)) {
+            // Remove taken status for this player's own avatar
+            var btn = document.querySelector('.av-btn[data-idx="'+idx+'"]');
+            if(btn) {
+              btn.classList.remove('taken');
+              btn.onclick = function(){ selAv(idx); };
+            }
+            selAv(idx);
+          }
+        }
+      } else {
+        // New player
+        hint.innerHTML =
+          '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:12px;padding:10px 14px;">'+
+          '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--eng);margin-bottom:3px;">NUEVO HEROE</div>'+
+          '<div style="font-size:12px;color:rgba(255,255,255,.7);font-weight:700;">Elige tu personaje y empieza la aventura!</div>'+
+          '</div>';
+      }
+    } catch(e) {
+      hint.innerHTML = '';
+    }
+  }, 600);
+}
+
+
+// ════════════════════════════════
+// FLAG IMAGES (base64)
+// ════════════════════════════════
+var FLAG_IMGS = {
+  argentina: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAHgDASIAAhEBAxEB/8QAGgABAAMBAQEAAAAAAAAAAAAAAAQFBwECBv/EAC4QAAECAwcDAgcBAQAAAAAAAAACAwEFFgQRVJKT0eESIVEVUhMxMzVxc7GhIv/EABoBAQACAwEAAAAAAAAAAAAAAAAEBQECAwb/xAAmEQABAgUFAAIDAQAAAAAAAAAAAQMCE1JhkQQREhQVBSIhMTJB/9oADAMBAAIRAxEAPwDfwCNb3l2aXWl9u7rbaUpN8L4XwgZRN12MKuybkkGfVfNfLGnyKwmvljT5JXSdsQvQZuaCDPqvmvljT5FYTXyxp8jpO2HoM3NBBn1YTXyxp8isJr5Y0+R0nbD0Gbmggz6r5r5Y0+RWE18safI6Tth6DNzQQZ9V818safIrCa+WNPkdJ2w9Bm5oIM+rCa+WNPk+4sDy7RL7M+5d1uNJUq6F0L4wOTrEbSbxHZnUwPKqQkkAHEkAhTf7Nbf0L/kSaRZk2t6V2ttuHUtbKkph5jGBtB/SGsf8qZUCyp+a4NeZO4p+a4NeZO5eTW6kyeckO0rgrQWXoE1wa8ydxT81wa8ydxNbqTIkO0rgrQWVPzXBrzJ3FPzXBrzJ3E1upMiQ7SuFK0FlT81wa8ydxT81wa8ydxNbqTIkO0rgrQWVPzXBrzJ3HoE1wa8ydxNbqTIkO0rhStNSlP2exfoR/IGf+gTXBrzJ3NDlra2pXZW3IdK0MpSqHiMIELWxwxQpxXcsPj244Yl5JsSgcBXFqdPK/pq/B6PK/pq/ABCAAAAABHtb/wAFHbt2vvKb1JfXfd/z/pc2tj4yO3eN3yKb01fXdf2/0858t3JqSf0T9LK4/YubI/8AGR3+dxII9kY+Cjv27XQJBeabnKSZ+yG5tyXiAAdzQE1H00/ghE1H00/gA9AAwARZk4pmV2pxtXStDKlJj4jCBKIU3+zW39C/5E3gT7Iax/iFTP6gmuMXlTsd9fmuMXlTsVgLyU3SmDzc92pcllUE0xi8qdh6/NcYvKnYrQJTdKYE92pcllUE0xi8qdjtQTTGLyp2KwCU3SmBPdqXJZVBNMYvKnYVBNMYvKnYrYASm6UwJ7tS5UsqgmmMXlTsKgmmMXlTsVoEpulMCe7UuVLL1+aYxeVOxoctcW9K7K44rqWtlKlR8xjAyo1OU/Z7F+hH8gQtbBDDCnFNiw+Ocjiii5KqkwAFcWwI0wZXaJdaWG7utxpSU3xuhfGBJARdl3MKm6bGfUhNfaxqcCkJt7WNTg0EEvuu2IPnM3M+pCbe1jU4FITb2sanBoIHddsPOZuZ9SE28ManApCa+1jU4NBA7rth5zNzPaPmvtY1ODtITX2sanBoIM912w85m5n1ITX2sanApCbeGNTg0EDuu2HnM3M+pCbe1jU4PuLAyuzy6zMuXdbbSUqujfC+ECSDi7qI3U2iO7GlgZVVh/0AA4kg/9k=',
+  australia: 'data:image/jpeg;base64,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',
+  brazil: 'data:image/jpeg;base64,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',
+  chile: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAHgDASIAAhEBAxEB/8QAGwABAAIDAQEAAAAAAAAAAAAAAAUIAQQHBgL/xAAzEAACAAMEBwcEAgMAAAAAAAAAAQIDBAUGEZESFzZTdJTRFCExUVJhshMzQXEHwYGx4f/EABsBAQACAwEBAAAAAAAAAAAAAAACBQEDBAYH/8QAMhEAAQICBggFBAMAAAAAAAAAAAECAxEEFBZRYeEFEhMhMmORoQYzYnGiFSIj4jFBwf/aAAwDAQACEQMRAD8A7+ARl4a2dZt27TrqdwqfT0sybLcSxWlDC2sV+TLU1lREMKskmSYK6a4r272i5ZdRrivbvaLll1LL6VHwOWuwixYK6a4r272i5ZdSXut/KV5rWvTZln1U2kcioqIZcxQ0+Dwfk8SLtFx2tVyy3GW0uGqyQ7oDT7RM9sh2iZ5rIrjqNwGn2iZ7ZDtEz2yANwGn2iZ7ZDtEz2yANwGn2iZ7ZG1A9KCFv8oA+gAACFvhsXbfATvgyaIS+Gxdt8BO+DJwuNvuRfwqVRSbaSTbfgkehupdWqvJbkNnuXNkw/SmTIo4oGsMIXo+PnE4V/k88m0002mvyjsdz7/wWPdGGdeS05lTHHO0KSTCvqTvprucUXf3rHHBvy7sT1NLiRGQ/wAaTVdxTwGMc7713HIplJVSNNTaebA4HhHpS2lC/D/ZOXD28sTi4f7Jz+Tbx1VrWpKhpbV7TYk6VDNp4JTwhx8IlGvFxJp+PhiiCuJt5YnFw/2Fe59HVzklNFGqjYqIl5ZdeAMIyeSLoAAAAAAG/L+3D+kaBvy/tw/pGQfQAABCXw2LtvgZ3wZNkTebZa1uEm/FhH6i61xJrNo5GX7ipuHcMPY9Vghh7I7LT8r5ZFrYzn/H9jyp6G4ndfuxOLh/s2cF5D9EIniXXYrdl/OORJvg7Vci7b4/sWLUUPqWZnSh9SzK6aTw8XmNJ+bzKWvenud9m+b2zLF6S81mNKH1LMrppRebzM4vzeYr3p7izfN7ZlitKH1LMaUPqWZXXSfqeZjSfm8xXvT3Fm+b2zLF6UPqWZIS/tQ/pFZMYvN5libtbL2Vwkr4o3wKRtVVJSK7SOi6k1rtec8Jf6pKAA6SoBFXm2WtbhJvxZKkVebZa1uEm/FkX8Km2B5rfdCu4AKI+lmDIAAAAAAAAAAALE3a2XsrhJXxRXYsTdvZeyuElfFHdQeJTzniPyme6koACxPJA0LapZtdYdfSSEnNnU8cuBRPBYuFpd5vmAqTSRJrla5HJ/RxPVneTdUvMLoNWd5N1S8wuh2wHLUoeJdWgpdydMzierO8m6peYXQas7ybql5hdDthkVOHiLQUu5OmZxLVneTdUvMf8GrO8m6peYXQ7YZFSh4i0FLuTpmcS1Z3k3VLzC6DVneTdUvMLodtAqUPEWgpdydMziWrO8m6peYXQas7ybql5hdDtoMVOHiLQUu5OmZxLVneTdUvMLodfsalm0Vh0FLOSU2TTwS40nisVCk+83gbYUBsNZtOOmaSjUtqNiS3XAAG4rz/2Q==',
+  china: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAHgDASIAAhEBAxEB/8QAGgABAQADAQEAAAAAAAAAAAAAAAcBBQYEA//EADIQAAEDAQUHAgUEAwAAAAAAAAABAgMEBREXVdEHEiExNnKTBrIyUWGBkRMiQaEzcbH/xAAbAQABBQEBAAAAAAAAAAAAAAAAAgMEBQYBB//EACsRAAIAAwUIAgMBAAAAAAAAAAABAgMEERQVUtEhMTM0cXKhsQYSI2GRgf/aAAwDAQACEQMRAD8Av4Bq/UNstsCxZrRdA6ZIlam4126q3uROf3ORRKFNsVBBFMiUEO9m0BNcXYMmm87dBi7Bk03nboR73JzeywwetyeVqUoE1xdgyabzt0GLkC8rGm+f+dugXuTmO4PW5PK1KUCa4uwZNN526DF2DJpvO3QL3JzBg9bk8rUpQJri7Bk03nboMXYMmm87dAvcnN7DB63J5WpSgTXF2DJpvO3QYuwZNN526Be5OYMHrcnlalKBNcXYMmm87dDtvT1stt+xYbRbA6BJVcm4528qXOVOf2FwT5cx2QsYqKCop4fvNhsX+G0AA8QwcptG6Ire6P3tOrOU2jdEVvdH72jU/hRdGS6HmpfcvZD2se9bmNc5edzUvNxZNgzWjR2hMsb2ugiviRUVN5/O78Iv5Q1UFRNSzNmglfFI1b0exblQpVN6ggpqGhba1XGysmYjnNRPhv4orkT4eFxj6+fOlQpSlbb/AHZt3G3rJsyWkpatt/pNHQytbvOika35qxUQ9lNar6ay6ihSnheybjvvbereKcvpw/PE2Pq2vrprWlppqhXUzbnQtYv7HNVL0X6r9TniRL/NLUUa32Mfg/LLUUa/Z7J7Mq6ahhrJYlbBNwY5earx/jn/AB/w8Z76imtGKz4JJ2zNpHX/AKe8q7vO/l/Z4ByXE4la2n0Fy22trt6AyAOCwYMgAMFy2c9EUXdL73EOLjs56Iou6X3uJtBxX00KL5Dyq7l6Z1QALgxpk5TaN0RW90fvadWcptG6Ire6L3tGp/Ci6Ml0HNS+5eyGmXOVzlc5VVy8VVVvVTAM+eiWGVcqoiKqqjUuRFXkh76ahpprMqKmStZFNF8MKperuKceHG7jdy/o14ERQtrY7BMULa2Ow+z6qeWnjp3yudDH8DF5N/18uZ8jAFJJbhSSW4yDAOnTIMAAMlx2c9EUXdJ73ENLls46Iou6X3uJtBxX00KH5Dyq7l6Z1YALgxoOU2jdEVvdF72nVnKbRuiK3ui97RqfwoujJdBzUvuXshoAM+eigAAAAAAAAAAAAALls46Iou6X3uIaXLZx0RRd0vvcTaDivpoUPyHlV3L0zqwAXBjQar1DYzbfsWazXTuhSVWrvtbvKlzkXl9jag5ElEmmLgjilxKOHeia4RQZzN4G6mMIoM5m8DdSlmCPdJOUsMYrc/haE1whp85m8DdRhDBnM3gbqUsBdJOUMYrc/haE1wigzmbwN1GEUGczeBupSgF0k5Qxitz+FoTXCKDOZvA3UYRQZzN4G6lKAXSTlDGK3P4WhNcIqfOZvA3UYRQZzN4G6lKAXSTl9hjFbn8LQmuEUGczeBup2vp6xm2BYsNmsndOkSuX9Rzd1Vvcq8vubUC5ciXLdsKGKivqKiH6TYrV0QAA8Qz/2Q==',
+  egypt: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAHgDASIAAhEBAxEB/8QAGgABAQEBAQEBAAAAAAAAAAAAAAEHCAYEA//EAC4QAAEABwYFBQADAAAAAAAAAAABAgQGEReUAwVRUuHiEhMUFTEHITJBcVOhsf/EABsBAQEAAwEBAQAAAAAAAAAAAAABAgMEBQYH/8QAJhEBAAEBCAEEAwAAAAAAAAAAAAECBBESFBVhkeEDBSExcUFRwf/aAAwDAQACEQMRAD8A8YUhTy36gAgIKCAoFIAqghQBCgghQCgAAiFNtlW7WDdUaCVbtYN1TobsvW8XX7Jvx2xIG2yrdrK3VOglW7WVuqdBl6zX7Jvx2xEG3SrdrBuqdBKt2srdU6DL1mv2TfjtiINulY7MYQbY4dTofKr6ZXB1i1kui3QohMEIVaU8WMfECT4aoWPXrJP747Y2DbpWOzGEG2OHU6CVbtYN1RoXL1pr9k347YiDbpVu1lbqnQSrdrK3VOgy9Zr9k347YiDbpVu1g3VGglW7WDdUaDL1mv2TfjtiQNulW7WDdUaAZetNfsm/Hb2oAO18WAAAAAPKtd6tDJfbYhWFrZoXgiyX8R4UeE/Q7ov2TuvTq8fU8rk8a0PlCMYxj/R81uyWzZezeuorCzVt0oWWW+PmEP0+jqLPuXauSjpuLmwh78fmH5A8WK/Jiqvn2mZiPuZ9nbhpui6PsZL1aGu+2NVaFlZpXgmzU8fFPlP2erPGWLJbMd7MC66sbNNuhCqyvx8wh+nszssNVc01Y/m/+NPniImMIADuaAAAAAEZlPhys95Um4T4crPeVJuOXAUdRz4crPeVJuE+HKz3lSbjlwoHUU+HKz3lSbhPhys95Um45dIB01a+tjj2i6UpQ3LqpRDhWZPGMILe0fs/KdDifwtsMOQmH+nNQNc+Kmfwyxy6asvW1xrNdVKENyqqEQ4VWTzhGK30fTPhys95Um45cBlTTFPwkzMuo58OVnvKk3CfDlZ7ypNxy4DJL3Uc+HKz3lSbhPhys95Um45cAHUc+HKz3lSbgcugF6AoAAACAoAgKAIUACAoAgKAAACP/9k=',
+  india: 'data:image/jpeg;base64,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',
+  mexico: 'data:image/jpeg;base64,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',
+  spain: 'data:image/jpeg;base64,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',
+  turkey: 'data:image/jpeg;base64,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',
+};
+
 window.initApp = async function() {
-  // Run immediately - don't wait for Firebase
+  // Show loading while we fetch taken avatars from Firebase
+  var overlay = document.getElementById('loadingOverlay');
+  var loadTxt = overlay ? overlay.querySelector('.loading-txt') : null;
+  if(overlay) { overlay.style.display='flex'; }
+  if(loadTxt) loadTxt.textContent = 'CARGANDO PERSONAJES...';
+
+  // Build grid immediately with no taken avatars (so screen shows fast)
   buildAvGrid({});
-  show('home');
-  // Load taken avatars in background
+
+  // Load taken avatars from Firebase
+  var taken = {};
   try {
-    var taken = await loadTakenAvatarsFromDB();
-    buildAvGrid(taken);
-  } catch(e) {}
+    taken = await loadTakenAvatarsFromDB();
+  } catch(e) { taken = {}; }
+
+  // Rebuild grid with taken avatars locked
+  buildAvGrid(taken);
+
+  // Hide loading and show home
+  if(overlay) overlay.style.display = 'none';
+  show('home');
 };
 
 function genBg() {
@@ -962,18 +1897,37 @@ async function startGame() {
     setTimeout(function(){ document.getElementById('nameInp').classList.remove('err'); }, 600);
     return;
   }
-  if(player.avIdx < 0) { alert('Elige tu personaje!'); return; }
+  if(player.avIdx < 0) {
+    // Shake avatar section
+    var avGrid = document.getElementById('avGrid');
+    if(avGrid) { avGrid.style.animation='none'; avGrid.offsetHeight; avGrid.style.animation='shake .4s ease'; }
+    var hint = document.getElementById('nameHint');
+    if(hint) hint.innerHTML = '<div style="background:rgba(255,23,68,.12);border:2px solid rgba(255,23,68,.3);border-radius:10px;padding:10px;text-align:center;font-size:13px;font-weight:800;color:#ff8a80;">Elige tu personaje primero! 👆</div>';
+    return;
+  }
   player.name = n;
-  // Go to dashboard immediately - load from Firebase in background
-  updStreak();
-  show('dash');
-  updateDash();
-  // Load player data from Firebase in background
+  // Save avatar choice immediately
+  if(!save.takenAv) save.takenAv = {};
+  save.takenAv[n] = player.avIdx;
+
+  // Show loading
+  var overlay = document.getElementById('loadingOverlay');
+  var loadTxt = overlay ? overlay.querySelector('.loading-txt') : null;
+  if(overlay) overlay.style.display = 'flex';
+  if(loadTxt) loadTxt.textContent = 'CARGANDO TU PERFIL...';
+
+  // Load player data from Firebase
   try {
     await loadPlayerFromDB(n);
-    updateDash(); // Refresh with loaded data
   } catch(e) {}
+
+  // Hide loading
+  if(overlay) overlay.style.display = 'none';
+
+  updStreak();
   savePlayerToDB();
+  show('dash');
+  updateDash();
 }
 
 function updStreak() {
@@ -1221,7 +2175,10 @@ function startMode(m) {
     document.getElementById('prac-title').textContent = s.icon+' '+s.name.toUpperCase();
     document.getElementById('prac-score').textContent = '0';
     show('practice');
-    mcCards = shuffle(cqs.map(function(q){ return {emoji:q.emoji,concept:q.concept,explain:q.explain,example:q.example}; }));
+    mcCards = buildSubjMiniClass(curSubj);
+    if(!mcCards || !mcCards.length) {
+      mcCards = shuffle(cqs.map(function(q){ return {emoji:q.emoji,concept:q.concept,explain:q.explain,example:q.example}; }));
+    }
     mcPage = 0; renderMiniCard();
   } else {
     document.getElementById('quiz-title').textContent = '⚔️ '+s.name.toUpperCase();
@@ -1232,6 +2189,37 @@ function startMode(m) {
 // ════════════════════════════════
 // MINI CLASS
 // ════════════════════════════════
+
+function buildSubjCard(c, s) {
+  if(!c) return '';
+  if(c.cardType === 'vocab') {
+    // Vocab card: big emoji + word + spelling boxes + meaning
+    var letters = (c.word||'').split('').map(function(l){
+      return '<div class="eng-letter">'+l+'</div>';
+    }).join('');
+    return '<div class="eng-vocab-card" style="border-color:'+(s?s.color:'var(--eng)')+';background:linear-gradient(160deg,#0a1628,#1a237e);">'+
+      '<span class="eng-big-emoji">'+(c.emoji||'')+'</span>'+
+      '<div class="eng-big-word">'+(c.word||'')+'</div>'+
+      '<div class="eng-spelling">'+letters+'</div>'+
+      '<div class="eng-meaning">'+(c.meaning||'')+'</div>'+
+      (c.tag?'<span class="eng-tag" style="border-color:'+(s?s.color:'var(--eng)')+';">'+c.tag+'</span>':'')+
+      '</div>';
+  }
+  if(c.cardType === 'grammar') {
+    // Grammar pizarrón: title + rich html content
+    var bgColor = s ? s.color : 'var(--eng)';
+    return '<div class="eng-grammar-card" style="border-color:'+bgColor+';">'+
+      '<div class="eng-grammar-title" style="color:'+bgColor+';">'+(c.emoji||'')+' '+(c.concept||'')+'</div>'+
+      (c.html||'<div style="color:rgba(255,255,255,.4);text-align:center;padding:20px;">Contenido cargando...</div>')+
+      '</div>';
+  }
+  return '<div class="flashcard '+(s?s.cls:'eng')+'">'+
+    '<span class="fc-emoji">'+(c.emoji||'📖')+'</span>'+
+    '<div class="fc-concept" style="color:'+(s?s.color:'var(--eng)')+'">'+(c.concept||'')+'</div>'+
+    '<div class="fc-explain" style="white-space:pre-line;">'+(c.explain||c.html||'')+'</div>'+
+    '</div>';
+}
+
 function renderMiniCard() {
   if(mcPage >= mcCards.length) { renderPracticeQ(); return; }
   var c = mcCards[mcPage];
@@ -1239,23 +2227,56 @@ function renderMiniCard() {
   var dots = mcCards.map(function(_,i){
     return '<div class="mc-dot'+(i===mcPage?' active':i<mcPage?' done':'')+'" onclick="jumpMC('+i+')"></div>';
   }).join('');
+  if(!c) { renderPracticeQ(); return; }
+  // Use rich card if cardType present (all subjects), else use basic flashcard
+  var cardHtml;
+  if(c && c.cardType) {
+    cardHtml = buildSubjCard(c, s);
+  } else {
+    cardHtml = '<div class="flashcard '+s.cls+'">'+
+      '<div class="fc-num">CONCEPTO '+(mcPage+1)+'</div>'+
+      '<span class="fc-emoji">'+(c.emoji||'📖')+'</span>'+
+      '<div class="fc-concept" style="color:'+s.color+'">'+(c.concept||'')+'</div>'+
+      '<div class="fc-explain" style="white-space:pre-line;">'+(c.explain||'')+'</div>'+
+      '<div class="fc-example">'+(c.example||'')+'</div>'+
+      '</div>';
+  }
   document.getElementById('pracContent').innerHTML =
-    '<div class="mc-top-info">MINI-CLASE - CONCEPTO '+(mcPage+1)+' DE '+mcCards.length+'</div>'+
+    '<div class="mc-top-info">MINI-CLASE - '+(mcPage+1)+' DE '+mcCards.length+'</div>'+
     '<div class="mc-dots">'+dots+'</div>'+
-    '<div class="flashcard '+s.cls+'">'+
-    '<div class="fc-num">CONCEPTO '+(mcPage+1)+'</div>'+
-    '<span class="fc-emoji">'+c.emoji+'</span>'+
-    '<div class="fc-concept" style="color:'+s.color+'">'+c.concept+'</div>'+
-    '<div class="fc-explain">'+c.explain+'</div>'+
-    '<div class="fc-example">'+c.example+'</div>'+
-    '</div>'+
+    cardHtml+
     '<div class="mc-nav">'+
     (mcPage>0?'<button class="pxb gray" style="font-size:12px;padding:14px;" onclick="jumpMC('+(mcPage-1)+')">ANTERIOR</button>':'<div style="flex:1"></div>')+
     '<button class="pxb yellow" style="font-size:12px;padding:14px;" onclick="jumpMC('+(mcPage+1)+')">'+
-    (mcPage<mcCards.length-1?'SIGUIENTE':'A PRACTICAR!')+
+    (mcPage<mcCards.length-1?'SIGUIENTE ▶':'⚡ A PRACTICAR!')+
     '</button></div>';
 }
 function jumpMC(i) { if(i>=mcCards.length){ renderPracticeQ(); return; } mcPage=i; renderMiniCard(); }
+
+function buildEngCard(c) {
+  if(!c) return '<div class="flashcard eng"><div style="color:rgba(255,255,255,.5);text-align:center;padding:20px;">Loading...</div></div>';
+  if(c.cardType==='vocab' && c.word) {
+    var letters = c.word.split('').map(function(l){ return '<div class="eng-letter">'+l+'</div>'; }).join('');
+    return '<div class="eng-vocab-card">'+
+      '<span class="eng-big-emoji">'+(c.emoji||'')+'</span>'+
+      '<div class="eng-big-word">'+(c.word||'')+'</div>'+
+      '<div class="eng-spelling">'+letters+'</div>'+
+      '<div class="eng-meaning">'+(c.meaning||'')+'</div>'+
+      (c.tag?'<span class="eng-tag">'+c.tag+'</span>':'')+
+      '</div>';
+  }
+  if(c.cardType==='grammar') {
+    var htmlContent = c.html||'';
+    if(!htmlContent) return '<div class="flashcard eng"><span class="fc-emoji">'+(c.emoji||'')+'</span><div class="fc-concept" style="color:var(--eng);">'+(c.concept||'')+'</div></div>';
+    return '<div class="eng-grammar-card">'+
+      '<div class="eng-grammar-title">'+(c.emoji||'')+' '+(c.concept||'')+'</div>'+
+      htmlContent+
+      '</div>';
+  }
+  return '<div class="flashcard eng"><span class="fc-emoji">'+(c.emoji||'🌟')+'</span><div class="fc-concept" style="color:var(--eng);">'+(c.concept||'')+'</div><div class="fc-explain" style="white-space:pre-line;">'+(c.explain||'')+'</div></div>';
+}
+
+
 
 // ════════════════════════════════
 // PRACTICE QUESTIONS
@@ -1274,6 +2295,14 @@ function renderPracticeQ() {
     '<div class="type-badge">'+typeLabel(q.type)+'</div>'+
     '<div class="q-box" style="border-left-color:'+s.color+'">'+
     '<div class="q-subj" style="color:'+s.color+'">'+s.icon+' '+s.name+'</div>'+
+    (q.flagDisplay ? (function(){
+      var key = q.flagDisplay.toLowerCase().replace(/[^a-z]/g,'');
+      var imgSrc = FLAG_IMGS[key];
+      if(imgSrc) {
+        return '<div style="text-align:center;margin:10px 0;"><img src="'+imgSrc+'" style="width:180px;height:120px;object-fit:cover;border-radius:12px;border:3px solid rgba(255,255,255,.2);box-shadow:0 4px 20px rgba(0,0,0,.4);"></div>';
+      }
+      return '<div style="font-size:80px;text-align:center;margin:10px 0;line-height:1;">'+q.flagDisplay+'</div>';
+    })() : '')+
     '<div class="q-text">'+q.q+'</div></div>'+
     buildAnsHtml(q)+
     '<div class="feedback-box" id="fbBox"><span class="fb-ico" id="fbIc"></span>'+
@@ -1303,6 +2332,14 @@ function renderQuizQ() {
     '<div class="type-badge">'+typeLabel(q.type)+'</div>'+
     '<div class="q-box" style="border-left-color:'+s.color+'">'+
     '<div class="q-subj" style="color:'+s.color+'">'+s.icon+' '+s.name+'</div>'+
+    (q.flagDisplay ? (function(){
+      var key = q.flagDisplay.toLowerCase().replace(/[^a-z]/g,'');
+      var imgSrc = FLAG_IMGS[key];
+      if(imgSrc) {
+        return '<div style="text-align:center;margin:10px 0;"><img src="'+imgSrc+'" style="width:180px;height:120px;object-fit:cover;border-radius:12px;border:3px solid rgba(255,255,255,.2);box-shadow:0 4px 20px rgba(0,0,0,.4);"></div>';
+      }
+      return '<div style="font-size:80px;text-align:center;margin:10px 0;line-height:1;">'+q.flagDisplay+'</div>';
+    })() : '')+
     '<div class="q-text">'+q.q+'</div></div>'+
     buildAnsHtml(q)+
     '<div class="feedback-box" id="fbBox"><span class="fb-ico" id="fbIc"></span>'+
@@ -1321,11 +2358,73 @@ function updTimer() {
 function typeLabel(t) { return {mc:'OPCION MULTIPLE',fill:'COMPLETAR'}[t]||'?'; }
 
 function buildAnsHtml(q) {
+  if(!q) return '';
   if(q.type==='fill') return '<input class="fill-inp" id="fillIn" placeholder="Escribe tu respuesta..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkFill()"><button class="btn-check" onclick="checkFill()">COMPROBAR</button>';
+  if(q.type==='reorder') return buildReorderHtml(q);
+  if(!q.opts || !q.opts.length) return '';
   var L = ['A','B','C','D'];
   return '<div class="opts-grid">'+q.opts.map(function(o,i){
     return '<button class="opt-btn" id="o'+i+'" onclick="checkOpt('+i+')"><span class="opt-letter">'+L[i]+'</span>'+o+'</button>';
   }).join('')+'</div>';
+}
+
+var reorderSelected = [];
+function buildReorderHtml(q) {
+  reorderSelected = [];
+  var tiles = shuffleArr(q.letters.slice()).map(function(l,i){
+    return '<button class="eng-word-tile" id="tile_'+i+'" onclick="reorderTap(\''+l+'\','+i+',this)">'+l+'</button>';
+  }).join('');
+  return '<div class="eng-answer-row" id="reorderAnswer"><span style="color:rgba(255,255,255,.3);font-size:13px;">Toca las palabras para armar la respuesta...</span></div>'+
+    '<div class="eng-reorder" id="reorderTiles">'+tiles+'</div>'+
+    '<button class="btn-check" onclick="checkReorder()">CHECK ⚡</button>';
+}
+
+function shuffleArr(a){
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+
+function reorderTap(word, idx, el) {
+  if(el.classList.contains('used')) return;
+  reorderSelected.push({word:word, idx:idx});
+  el.classList.add('used');
+  var row = document.getElementById('reorderAnswer');
+  row.innerHTML = reorderSelected.map(function(s,i){
+    return '<div class="eng-answer-tile" onclick="reorderRemove('+s.idx+','+i+')">'+s.word+'</div>';
+  }).join('');
+}
+
+function reorderRemove(tileIdx, ansIdx) {
+  reorderSelected.splice(ansIdx, 1);
+  var tile = document.getElementById('tile_'+tileIdx);
+  if(tile) tile.classList.remove('used');
+  var row = document.getElementById('reorderAnswer');
+  if(reorderSelected.length === 0) {
+    row.innerHTML = '<span style="color:rgba(255,255,255,.3);font-size:13px;">Toca las palabras para armar la respuesta...</span>';
+  } else {
+    row.innerHTML = reorderSelected.map(function(s,i){
+      return '<div class="eng-answer-tile" onclick="reorderRemove('+s.idx+','+i+')">'+s.word+'</div>';
+    }).join('');
+  }
+}
+
+function checkReorder() {
+  if(answered) return;
+  var q = cqs[cq];
+  var userAnswer = reorderSelected.map(function(s){return s.word;}).join(' ').toUpperCase().trim();
+  var correct = (q.answer||'').toUpperCase().trim();
+  answered = true;
+  var ok = userAnswer === correct;
+  // Also check without punctuation
+  if(!ok) {
+    var ua = userAnswer.replace(/[?!.,]/g,'').trim();
+    var ca = correct.replace(/[?!.,]/g,'').trim();
+    ok = ua === ca;
+  }
+  handleRes(ok, Object.assign({}, q, {
+    type:'mc', opts:[], ans:0,
+    explain: ok ? '✅ Correcto! ' + q.answer : 'El orden correcto es: ' + q.answer
+  }));
 }
 
 function checkOpt(idx) {
@@ -1342,11 +2441,24 @@ function checkOpt(idx) {
 function checkFill() {
   if(answered) return;
   var inp = document.getElementById('fillIn'); if(!inp) return;
-  var v = inp.value.trim().toLowerCase();
+  var v = inp.value.trim();
   var q = cqs[cq];
-  function norm(s){ return s.replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').trim(); }
-  var allAns = [q.ans].concat(q.altAns||[]).map(function(a){ return norm(a.toLowerCase()); });
-  var ok = allAns.indexOf(norm(v)) >= 0;
+  function norm(s){ return s.toLowerCase().replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').trim(); }
+  var correctFull = norm(q.ans);
+  var vNorm = norm(v);
+  // Check exact match first
+  var allAns = [q.ans].concat(q.altAns||[]).map(function(a){ return norm(a); });
+  var ok = allAns.indexOf(vNorm) >= 0;
+  // Also check if user typed the missing letters that complete the full answer
+  if(!ok && correctFull.indexOf(vNorm) >= 0 && vNorm.length >= 1) {
+    ok = true; // partial correct letters typed
+  }
+  // Also check if full word typed matches (even if question only asked for missing letters)
+  if(!ok) {
+    allAns.forEach(function(a){
+      if(correctFull.indexOf(norm(v))>=0 || norm(v).indexOf(a)>=0 || a.indexOf(vNorm)>=0) ok=true;
+    });
+  }
   answered=true; inp.disabled=true; inp.classList.add(ok?'correct':'wrong');
   var bc = document.querySelector('.btn-check'); if(bc) bc.disabled=true;
   handleRes(ok, q);
@@ -1376,7 +2488,7 @@ function handleRes(ok, q, timeout) {
     document.getElementById('fbTx').textContent = timeout?'Se acabo el tiempo!':msgs_fail[Math.floor(Math.random()*msgs_fail.length)];
     document.getElementById('fbEx').textContent = '💡 '+q.explain;
     var cw = document.getElementById('fbCw'); cw.style.display='block';
-    cw.textContent = '✅ Respuesta: '+(q.type==='mc'?q.opts[q.ans]:q.ans);
+    cw.textContent = '✅ Respuesta: '+(q.type==='mc' && q.opts && q.opts[q.ans] ? q.opts[q.ans] : (q.ans||''));
     playBeep(200,220);
   }
   document.getElementById('btnNext').classList.add('show');
@@ -1403,7 +2515,7 @@ async function endGame() {
   await savePlayerToDB();
   var char,title,sub;
   if(pct===100){char='🏆';title='PERFECTO!';sub='Eres una LEYENDA!';}
-  else if(pct>=80){char='🥇';title='EXCELENTE!';sub='Muy buen trabajo, heroe!';}
+  else if(pct>=80){char='🥇';title='EXCELENTE!';sub='Muy buen trabajo, héroe!';}
   else if(pct>=60){char='⭐';title='BUEN JUEGO!';sub='Sigue practicando!';}
   else if(pct>=40){char='💪';title='BUEN INTENTO!';sub='Repasa y vuelve a intentarlo!';}
   else{char='📚';title='A ESTUDIAR!';sub='Revisa la mini-clase y vuelve!';}
@@ -1419,7 +2531,7 @@ async function endGame() {
   if(wrongAnswers.length){
     document.getElementById('wrongReview').style.display='block';
     document.getElementById('wrongList').innerHTML=wrongAnswers.slice(0,4).map(function(q){
-      return '<div class="wr-item"><div class="wr-q">❓ '+q.q+'</div><div class="wr-a">✅ '+(q.type==='mc'?q.opts[q.ans]:q.ans)+'</div></div>';
+      return '<div class="wr-item"><div class="wr-q">❓ '+q.q+'</div><div class="wr-a">✅ '+(q.type==='mc' && q.opts && q.opts.length ? q.opts[q.ans]:q.ans)+'</div></div>';
     }).join('');
   } else document.getElementById('wrongReview').style.display='none';
   var prev=(save.unlocked||[]).slice(); checkBadges();
@@ -1454,10 +2566,13 @@ function shuffle(a) {
   return r;
 }
 function randFmt(q) {
-  if(q.type==='mc') {
+  if(q.type==='mc' && q.opts && q.opts.length) {
     var idx=[]; for(var i=0;i<q.opts.length;i++) idx.push(i);
     var sh=shuffle(idx);
     return Object.assign({},q,{opts:sh.map(function(i){return q.opts[i];}),ans:sh.indexOf(q.ans)});
+  }
+  if(q.type==='reorder' && q.letters && q.letters.length) {
+    return Object.assign({},q,{letters:shuffle(q.letters.slice())});
   }
   return Object.assign({},q);
 }
