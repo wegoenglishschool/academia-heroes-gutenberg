@@ -1085,6 +1085,13 @@ var champSubj='lang', champMode='practice';
 function getSaveKey(name) {
   return 'ah_' + name.toLowerCase().replace(/[^a-z0-9]/g,'_');
 }
+function getDocId(name) {
+  return name.toLowerCase()
+    .replace(/[áàä]/g,'a').replace(/[éèë]/g,'e')
+    .replace(/[íìï]/g,'i').replace(/[óòö]/g,'o')
+    .replace(/[úùü]/g,'u').replace(/ñ/g,'n')
+    .replace(/[^a-z0-9]/g,'_').replace(/_+/g,'_') || 'player';
+}
 
 async function savePlayerToDB() {
   if(!player.name) return;
@@ -1467,24 +1474,10 @@ async function startGame() {
   if(!save.takenAv) save.takenAv = {};
   save.takenAv[n] = player.avIdx;
 
-  // Show loading
-  var overlay = document.getElementById('loadingOverlay');
-  var loadTxt = overlay ? overlay.querySelector('.loading-txt') : null;
-  if(overlay) overlay.style.display = 'flex';
-  if(loadTxt) loadTxt.textContent = 'CARGANDO TU PERFIL...';
-
-  // Load player data from Firebase
-  try {
-    await loadPlayerFromDB(n);
-  } catch(e) {}
-
-  // Hide loading
-  if(overlay) overlay.style.display = 'none';
-
+  // Load from localStorage (instant, no loading screen needed)
+  try { await loadPlayerFromDB(n); } catch(e) {}
   updStreak();
-  // Save immediately so player is registered even if they don't finish a game
-  await savePlayerToDB();
-  console.log('Player saved:', player.name, 'docId:', getDocId(player.name));
+  savePlayerToDB();
   show('dash');
   updateDash();
 }
@@ -1502,7 +1495,7 @@ function navTo(sec) {
   var map = {mundos:'dash', champs:'champs', logros:'logros', perfil:'perfil'};
   show(map[sec]||'dash');
   if(sec==='mundos') updateDash();
-  
+  else if(sec==='champs') updateChamps();
   else if(sec==='logros') updateLogros();
   else if(sec==='perfil') updatePerfil();
 }
