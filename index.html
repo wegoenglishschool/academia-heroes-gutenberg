@@ -332,9 +332,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .fill-inp:focus{border-color:var(--cy);}
 .fill-inp.correct{border-color:var(--g);}
 .fill-inp.wrong{border-color:var(--r);}
-.btn-check{font-family:'Courier New',monospace;font-size:13px;font-weight:bold;padding:14px;border:none;
+.btn-check{font-family:'Courier New',monospace;font-size:14px;font-weight:bold;padding:18px;border:none;
   cursor:pointer;width:100%;border-radius:10px;background:linear-gradient(135deg,var(--g),var(--g2));
-  color:white;box-shadow:0 5px 0 rgba(0,0,0,.4);transition:all .15s;}
+  color:white;box-shadow:0 5px 0 rgba(0,0,0,.4);transition:all .15s;margin-top:12px;
+  display:block;position:relative;z-index:10;-webkit-tap-highlight-color:rgba(0,230,118,.3);}
 .feedback-box{border-radius:14px;padding:14px 16px;margin-bottom:13px;display:none;
   align-items:flex-start;gap:13px;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
 @keyframes popIn{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
@@ -623,7 +624,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     <div class="g-title" id="prac-title">PRACTICA</div>
     <div class="g-score">🪙<span id="prac-score">0</span></div>
   </div>
-  <div class="scroll-area"><div class="game-content" id="pracContent"></div></div>
+  <div class="scroll-area" style="padding-bottom:100px;-webkit-overflow-scrolling:touch;"><div class="game-content" id="pracContent"></div></div>
 </div>
 
 <!-- QUIZ -->
@@ -633,7 +634,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     <div class="g-title" id="quiz-title">QUIZ</div>
     <div class="timer-box">⏱<span class="timer-val" id="qTimer">20</span></div>
   </div>
-  <div class="scroll-area"><div class="game-content" id="quizContent"></div></div>
+  <div class="scroll-area" style="padding-bottom:100px;-webkit-overflow-scrolling:touch;"><div class="game-content" id="quizContent"></div></div>
 </div>
 
 <!-- RESULT -->
@@ -2090,7 +2091,7 @@ function renderQuizQ() {
   answered = false;
   var q = cqs[cq], s = SUBJS[curSubj];
   var pct = Math.round((cq/cqs.length)*100);
-  clearInterval(timerInt); timerSecs=20; updTimer();
+  clearInterval(timerInt); timerSecs=(q.type==='fill'||q.type==='reorder')?35:20; updTimer();
   timerInt = setInterval(function(){
     timerSecs--; updTimer();
     if(timerSecs<=0){ clearInterval(timerInt); if(!answered){ answered=true; handleRes(false,q,true); } }
@@ -2130,7 +2131,8 @@ function typeLabel(t) { return {mc:'OPCION MULTIPLE',fill:'COMPLETAR'}[t]||'?'; 
 
 function buildAnsHtml(q) {
   if(!q) return '';
-  if(q.type==='fill') return '<input class="fill-inp" id="fillIn" placeholder="Escribe tu respuesta..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkFill()"><button class="btn-check" onclick="checkFill()">COMPROBAR</button>';
+  if(q.type==='fill') return '<input class="fill-inp" id="fillIn" placeholder="Escribe tu respuesta..." autocomplete="off" onkeydown="if(event.key===\'Enter\')checkFill()">'+
+  '<button class="btn-check" onclick="checkFill()" style="margin-top:10px;font-size:14px;padding:16px;">✅ COMPROBAR</button>';
   if(q.type==='reorder') return buildReorderHtml(q);
   if(!q.opts || !q.opts.length) return '';
   var L = ['A','B','C','D'];
@@ -2157,6 +2159,16 @@ function shuffleArr(a){
 
 function reorderTap(word, idx, el) {
   if(el.classList.contains('used')) return;
+  // Reset timer when user starts interacting
+  if(mode==='quiz' && reorderSelected.length === 0) {
+    clearInterval(timerInt);
+    timerSecs = 30;
+    updTimer();
+    timerInt = setInterval(function(){
+      timerSecs--; updTimer();
+      if(timerSecs<=0){ clearInterval(timerInt); if(!answered){ answered=true; checkReorder(); } }
+    }, 1000);
+  }
   reorderSelected.push({word:word, idx:idx});
   el.classList.add('used');
   var row = document.getElementById('reorderAnswer');
