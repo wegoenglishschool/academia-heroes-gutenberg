@@ -562,7 +562,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   </div>
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="navTo('mundos')"><span class="nav-icon">🗺️</span><span class="nav-lbl">MUNDOS</span></button>
-    <button class="nav-btn" onclick="navTo('logros')"><span class="nav-icon">🏅</span><span class="nav-lbl">LOGROS</span></button>
+    <button class="nav-btn" onclick="navTo('champs')"><span class="nav-icon">📊</span><span class="nav-lbl">PROGRESO</span></button>
     <button class="nav-btn" onclick="navTo('logros')"><span class="nav-icon">🏅</span><span class="nav-lbl">LOGROS</span></button>
     <button class="nav-btn" onclick="navTo('perfil')"><span class="nav-icon">👤</span><span class="nav-lbl">PERFIL</span></button>
   </nav>
@@ -575,7 +575,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   <div class="scroll-area"><div class="ach-inner" id="achInner"></div></div>
   <nav class="bottom-nav">
     <button class="nav-btn" onclick="navTo('mundos')"><span class="nav-icon">🗺️</span><span class="nav-lbl">MUNDOS</span></button>
-    <button class="nav-btn" onclick="navTo('logros')"><span class="nav-icon">🏅</span><span class="nav-lbl">LOGROS</span></button>
+    <button class="nav-btn" onclick="navTo('champs')"><span class="nav-icon">📊</span><span class="nav-lbl">PROGRESO</span></button>
     <button class="nav-btn active"><span class="nav-icon">🏅</span><span class="nav-lbl">LOGROS</span></button>
     <button class="nav-btn" onclick="navTo('perfil')"><span class="nav-icon">👤</span><span class="nav-lbl">PERFIL</span></button>
   </nav>
@@ -587,7 +587,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   <div class="scroll-area"><div class="prof-inner" id="profInner"></div></div>
   <nav class="bottom-nav">
     <button class="nav-btn" onclick="navTo('mundos')"><span class="nav-icon">🗺️</span><span class="nav-lbl">MUNDOS</span></button>
-    <button class="nav-btn" onclick="navTo('logros')"><span class="nav-icon">🏅</span><span class="nav-lbl">LOGROS</span></button>
+    <button class="nav-btn" onclick="navTo('champs')"><span class="nav-icon">📊</span><span class="nav-lbl">PROGRESO</span></button>
     <button class="nav-btn" onclick="navTo('logros')"><span class="nav-icon">🏅</span><span class="nav-lbl">LOGROS</span></button>
     <button class="nav-btn active"><span class="nav-icon">👤</span><span class="nav-lbl">PERFIL</span></button>
   </nav>
@@ -2182,19 +2182,31 @@ function reorderRemove(tileIdx, ansIdx) {
 function checkReorder() {
   if(answered) return;
   var q = cqs[cq];
-  var userAnswer = reorderSelected.map(function(s){return s.word;}).join(' ').toUpperCase().trim();
-  var correct = (q.answer||'').toUpperCase().trim();
+  // Get what user selected as array
+  var selected = reorderSelected.map(function(s){ return s.word.toUpperCase(); });
+  var correct = (q.answer||'').toUpperCase().replace(/[?!.,]/g,'').trim();
   answered = true;
-  var ok = userAnswer === correct;
-  // Also check without punctuation
+
+  // Method 1: join selected and compare to answer (word-order questions)
+  var userJoined = selected.join(' ').replace(/[?!.,]/g,'').trim();
+  var ok = userJoined === correct;
+
+  // Method 2: join without spaces (letter-unscramble questions like WENT)
   if(!ok) {
-    var ua = userAnswer.replace(/[?!.,]/g,'').trim();
-    var ca = correct.replace(/[?!.,]/g,'').trim();
-    ok = ua === ca;
+    var userNoSpace = selected.join('').replace(/[?!.,\s]/g,'');
+    var correctNoSpace = correct.replace(/[\s?!.,]/g,'');
+    ok = userNoSpace === correctNoSpace;
+  }
+
+  // Method 3: sort both and compare (unscramble - any order valid)
+  if(!ok) {
+    var sortedUser = selected.slice().sort().join('');
+    var sortedCorrect = correct.replace(/\s/g,'').split('').sort().join('');
+    if(sortedUser === sortedCorrect) ok = true;
   }
   handleRes(ok, Object.assign({}, q, {
     type:'mc', opts:[], ans:0,
-    explain: ok ? '✅ Correcto! ' + q.answer : 'El orden correcto es: ' + q.answer
+    explain: ok ? '✅ Correcto! ' + q.answer : 'El orden correcto es: ' + q.answerwer
   }));
 }
 
