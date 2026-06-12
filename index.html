@@ -1375,6 +1375,228 @@ function updSubjScore(subj, coins) {
   save[key] = (save[key]||0) + coins;
 }
 
+
+
+
+// ════════════════════════════════
+// MINI-CLASS BUILDERS PER SUBJECT
+// ════════════════════════════════
+function buildSubjMiniClass(subj) {
+  if(subj==='eng') return buildEngMiniClass();
+  if(subj==='lang') return buildLangMiniClass();
+  if(subj==='mat') return buildMatMiniClass();
+  if(subj==='sci') return buildSciMiniClass();
+  return [];
+}
+
+function buildLangMiniClass() {
+  function slide(emoji,concept,question,options,correctIdx,explanation){
+    var optsHtml='';
+    if(options&&options.length){
+      optsHtml='<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">'+
+        options.map(function(o,i){
+          var ok=i===correctIdx;
+          return '<div style="background:'+(ok?'rgba(0,230,118,.15)':'rgba(255,255,255,.06)')+';border:2px solid '+(ok?'var(--g)':'rgba(255,255,255,.15)')+';border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;color:'+(ok?'#b9ffda':'rgba(255,255,255,.7)')+';display:flex;align-items:center;gap:8px;">'+
+          '<span style="font-family:Courier New,monospace;font-size:10px;background:rgba(255,255,255,.1);border-radius:4px;padding:2px 6px;">'+String.fromCharCode(65+i)+'</span>'+o+
+          (ok?' <span style="margin-left:auto;">✅</span>':'')+
+          '</div>';
+        }).join('')+'</div>';
+    }
+    return {cardType:'grammar',concept:concept,emoji:emoji,
+      html:'<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+      '<div style="background:rgba(255,255,255,.07);border:2px solid rgba(255,138,101,.4);border-radius:12px;padding:14px;">'+
+      '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);margin-bottom:8px;">📋 REACTIVO DE LA GUÍA</div>'+
+      '<div style="font-size:15px;font-weight:900;color:white;line-height:1.5;">'+question+'</div>'+optsHtml+'</div>'+
+      '<div style="background:rgba(255,138,101,.08);border:2px solid rgba(255,138,101,.25);border-radius:12px;padding:12px 14px;">'+
+      '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);margin-bottom:7px;">💡 EXPLICACIÓN</div>'+
+      explanation+'</div></div>'};
+  }
+  return [
+    slide('🔤','Aliteración','¿Qué es una aliteración?',
+      ['La comparación entre dos elementos','La sucesión de sonidos iguales o parecidos','La exageración de cualidades'],1,
+      '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">La <span style="color:var(--lang);">aliteración</span> es la repetición del mismo sonido en varias palabras.<br><div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 10px;margin-top:6px;font-style:italic;">"Bajo el <span style="color:var(--y);">a</span><span style="color:var(--lang);">l</span>a <span style="color:var(--lang);">l</span>eve de<span style="color:var(--lang);">l</span> <span style="color:var(--lang);">l</span>eve abanico" 👂 Escucha la L repetida!</div></div>'),
+    slide('💬','Lenguaje Literal vs Figurado','¿Cuál verso usa lenguaje FIGURADO para "Disfruto escuchar tu risa"?',
+      ['Me gusta cuando te ríes','Tu sonrisa es canto del viento','Escuchar tu risa me alegra'],1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="background:rgba(0,230,118,.1);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--g);margin-bottom:4px;">✅ LITERAL</div><div style="font-size:12px;color:white;font-weight:700;">Dice las cosas TAL COMO SON.<br><em>"Me gusta tu risa"</em></div></div><div style="background:rgba(213,0,249,.1);border:2px solid rgba(213,0,249,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--pu);margin-bottom:4px;">🌟 FIGURADO</div><div style="font-size:12px;color:white;font-weight:700;">Usa metáforas y comparaciones.<br><em>"Tu risa es canto del viento"</em></div></div></div>'),
+    slide('🎭','Textos Dramáticos','¿Cuál es la característica principal de los textos dramáticos?',
+      ['Son escritos para representarse en un escenario frente a un público','Se publican en los periódicos','Se presentan como series o películas'],0,
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;"><div style="background:rgba(255,138,101,.12);border:1px solid rgba(255,138,101,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">💬</div><div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);">DIÁLOGOS</div></div><div style="background:rgba(255,138,101,.12);border:1px solid rgba(255,138,101,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">🎬</div><div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);">ACOTACIONES</div></div><div style="background:rgba(255,138,101,.12);border:1px solid rgba(255,138,101,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">🎪</div><div style="font-family:Courier New,monospace;font-size:9px;color:var(--lang);">ACTOS Y ESCENAS</div></div></div>'),
+    slide('🃏','Juegos de Palabras','¿Cuál refrán utiliza un juego de palabras?',
+      ['Más vale pájaro en mano que ciento volando','No por mucho madrugar amanece más temprano','El que tenga tienda, que la atienda'],2,
+      '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">Los juegos de palabras usan <span style="color:var(--lang);">sonidos</span> y <span style="color:var(--lang);">doble sentido</span>.<br><div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px 10px;margin-top:5px;">"El que tenga <span style="color:var(--y);">tienda</span> que la <span style="color:var(--y);">atienda</span>"<br><span style="font-size:11px;color:rgba(255,255,255,.5);">tienda=negocio / atienda=cuidar</span></div></div>'),
+    slide('🖼️','Caligrama','¿Qué es un caligrama?',
+      ['Palabras que forman una figura o imagen','Una nube de palabras de distintos tamaños','Un poema con rima'],0,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="background:rgba(0,229,255,.1);border:2px solid rgba(0,229,255,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--cy);margin-bottom:4px;">🖼️ CALIGRAMA</div><div style="font-size:12px;color:white;font-weight:700;">Palabras que forman la <span style="color:var(--cy);">figura</span> de lo que describen</div></div><div style="background:rgba(0,229,255,.1);border:2px solid rgba(0,229,255,.3);border-radius:8px;padding:9px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--cy);margin-bottom:4px;">☁️ NUBE DE PALABRAS</div><div style="font-size:12px;color:white;font-weight:700;">Palabras de <span style="color:var(--cy);">distintos tamaños</span> sobre un tema</div></div></div>'),
+  ];
+}
+
+function buildMatMiniClass() {
+  function slide(emoji,concept,html){return {cardType:'grammar',concept:concept,emoji:emoji,html:html};}
+  function sec(title,color,body){return '<div style="background:'+color+'11;border:2px solid '+color+'44;border-radius:10px;padding:10px 12px;margin-bottom:8px;"><div style="font-family:Courier New,monospace;font-size:9px;font-weight:900;color:'+color+';margin-bottom:7px;">'+title+'</div>'+body+'</div>';}
+  return [
+    slide('➗','División y Multiplicación',
+      sec('➗ DIVISIÓN: Repartir en partes iguales','var(--mat)',
+        '<div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;">'+
+        '<span style="background:rgba(79,195,247,.2);border:2px solid var(--mat);border-radius:7px;padding:7px 11px;font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--mat);">TOTAL</span>'+
+        '<span style="color:rgba(255,255,255,.4);font-size:20px;padding:4px;">÷</span>'+
+        '<span style="background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:7px;padding:7px 11px;font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--g);">GRUPOS</span>'+
+        '<span style="color:rgba(255,255,255,.4);font-size:20px;padding:4px;">=</span>'+
+        '<span style="background:rgba(255,214,0,.2);border:2px solid var(--y);border-radius:7px;padding:7px 11px;font-family:Courier New,monospace;font-size:12px;font-weight:900;color:var(--y);">RESULTADO</span></div>'+
+        '<div style="display:flex;flex-direction:column;gap:6px;">'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🌱 12 litros ÷ 6 días <span style="color:var(--y);">= 2 litros/día</span></div>'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🐶 30 latas ÷ 5 perros <span style="color:var(--y);">= 6 latas c/u</span></div>'+
+        '<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🌿 72 hojas ÷ 6 equipos <span style="color:var(--y);">= 12 hojas c/u</span></div></div>'
+      )+sec('✖️ MULTIPLICACIÓN','var(--g)','<div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:14px;font-weight:800;color:white;">🥦 2 porciones × 7 platos <span style="color:var(--y);">= 14 porciones</span></div>')),
+    slide('⚖️','Unidades de Medida',
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">'+
+      '<div style="background:rgba(79,195,247,.12);border:2px solid var(--mat);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:30px;margin-bottom:6px;">⚖️</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--mat);margin-bottom:6px;">MASA</div><div style="font-size:12px;font-weight:800;color:white;line-height:1.7;">kilogramo<br><span style="color:var(--y);">1 kg = 1,000 g</span></div></div>'+
+      '<div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:30px;margin-bottom:6px;">📏</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin-bottom:6px;">LONGITUD</div><div style="font-size:12px;font-weight:800;color:white;line-height:1.7;">metro<br><span style="color:var(--y);">🦒 = metros</span></div></div>'+
+      '<div style="background:rgba(100,181,246,.12);border:2px solid var(--eng);border-radius:12px;padding:12px;text-align:center;"><div style="font-size:30px;margin-bottom:6px;">💧</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--eng);margin-bottom:6px;">VOLUMEN</div><div style="font-size:12px;font-weight:800;color:white;line-height:1.7;">litro<br><span style="color:var(--y);">1 L = 1,000 ml</span></div></div></div>'+
+      sec('⚖️ FRACCIONES DE KILO','var(--y)',
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;">'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">¼</div><div style="font-size:13px;color:white;font-weight:900;margin-top:3px;">250 g</div></div>'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">½</div><div style="font-size:13px;color:white;font-weight:900;margin-top:3px;">500 g</div></div>'+
+        '<div style="background:rgba(0,230,118,.15);border:2px solid var(--g);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">¾</div><div style="font-size:13px;color:var(--g);font-weight:900;margin-top:3px;">750 g ✅</div></div>'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-family:Courier New,monospace;font-size:16px;color:var(--y);">1</div><div style="font-size:13px;color:white;font-weight:900;margin-top:3px;">1,000 g</div></div></div>')),
+    slide('📐','Figuras y Cuerpos Geométricos',
+      sec('📐 FIGURAS GEOMÉTRICAS — 2D','var(--mat)',
+        '<div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:7px;">Solo tienen <span style="color:var(--mat);">largo y ancho</span></div>'+
+        '<div style="display:flex;gap:7px;flex-wrap:wrap;">'+['🟦 Cuadrado','🔺 Triángulo','⭕ Círculo','▭ Rectángulo'].map(function(f){return '<span style="background:rgba(79,195,247,.12);border:1px solid rgba(79,195,247,.3);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:800;color:white;">'+f+'</span>';}).join('')+'</div>'+
+        '<div style="margin-top:8px;font-size:13px;font-weight:800;color:white;line-height:1.7;">📍 <span style="color:var(--y);">VÉRTICE:</span> punto donde se unen 2 lados<br>⚖️ <span style="color:var(--y);">EJE DE SIMETRÍA:</span> divide en 2 partes iguales</div>')+
+      sec('📦 CUERPOS GEOMÉTRICOS — 3D','var(--g)',
+        '<div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:7px;">Tienen <span style="color:var(--g);">largo + alto + ancho</span></div>'+
+        '<div style="display:flex;gap:7px;flex-wrap:wrap;">'+['📦 Cubo','🥫 Cilindro','⚽ Esfera','🔺 Pirámide'].map(function(f){return '<span style="background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.3);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:800;color:white;">'+f+'</span>';}).join('')+'</div>'+
+        '<div style="margin-top:7px;font-size:13px;font-weight:800;color:white;">❄️ <span style="color:var(--y);">Fractales:</span> figuras que se repiten a distintas escalas</div>')),
+    slide('📊','Tablas y Pictogramas',
+      sec('📋 TABLA DE DATOS','var(--mat)','<div style="font-size:13px;font-weight:800;color:white;">Sirve para <span style="color:var(--mat);">registrar datos</span> de una investigación de forma ordenada.</div>')+
+      sec('🖼️ PICTOGRAMA','var(--pu)',
+        '<div style="font-size:13px;font-weight:800;color:white;line-height:1.7;">Representación mediante <span style="color:var(--pu);">imágenes</span> que muestran cantidades.<br>'+
+        '<div style="background:rgba(0,0,0,.3);border-radius:8px;padding:10px;margin-top:5px;font-size:14px;line-height:2;">🍎 🍎 🍎 = <span style="color:var(--y);">6</span> &nbsp; 🍌 🍌 = <span style="color:var(--y);">4</span> &nbsp; 🍊 🍊 🍊 = <span style="color:var(--y);">6</span></div></div>')
+    )
+  ];
+}
+
+function buildSciMiniClass() {
+  function slide(emoji,concept,question,options,correctIdx,explanation){
+    var optsHtml='';
+    if(options&&options.length){
+      optsHtml='<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">'+
+        options.map(function(o,i){
+          var ok=i===correctIdx;
+          return '<div style="background:'+(ok?'rgba(0,230,118,.15)':'rgba(255,255,255,.06)')+';border:2px solid '+(ok?'var(--g)':'rgba(255,255,255,.15)')+';border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;color:'+(ok?'#b9ffda':'rgba(255,255,255,.7)')+';display:flex;align-items:center;gap:8px;">'+
+          '<span style="font-family:Courier New,monospace;font-size:10px;background:rgba(255,255,255,.1);border-radius:4px;padding:2px 6px;">'+String.fromCharCode(65+i)+'</span>'+o+
+          (ok?' <span style="margin-left:auto;">✅</span>':'')+
+          '</div>';
+        }).join('')+'</div>';
+    }
+    return {cardType:'grammar',concept:concept,emoji:emoji,
+      html:'<div style="display:flex;flex-direction:column;gap:10px;width:100%;">'+
+      '<div style="background:rgba(255,255,255,.07);border:2px solid rgba(105,240,174,.4);border-radius:12px;padding:14px;">'+
+      '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:8px;">📋 REACTIVO DE LA GUÍA</div>'+
+      '<div style="font-size:15px;font-weight:900;color:white;line-height:1.5;">'+question+'</div>'+optsHtml+'</div>'+
+      '<div style="background:rgba(105,240,174,.08);border:2px solid rgba(105,240,174,.25);border-radius:12px;padding:12px 14px;">'+
+      '<div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:7px;">💡 EXPLICACIÓN</div>'+
+      explanation+'</div></div>'};
+  }
+  return [
+    slide('⚖️','Unidades de Medida','¿Cuál es la unidad de medida de la masa?',
+      ['Kilogramo','Litro','Metro'],0,
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;"><div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:8px;padding:9px;text-align:center;"><div style="font-size:26px;">⚖️</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin:4px 0;">KILOGRAMO</div><div style="font-size:11px;color:white;font-weight:700;">Mide la MASA<br><span style="color:var(--y);">1 kg = 1,000 g</span></div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:9px;text-align:center;"><div style="font-size:26px;">💧</div><div style="font-family:Courier New,monospace;font-size:10px;color:rgba(255,255,255,.4);margin:4px 0;">LITRO</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;">Mide LÍQUIDOS</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:9px;text-align:center;"><div style="font-size:26px;">📏</div><div style="font-family:Courier New,monospace;font-size:10px;color:rgba(255,255,255,.4);margin:4px 0;">METRO</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:700;">Mide LONGITUD</div></div></div>'),
+    slide('🧪','Solubilidad','¿Cómo se llama la capacidad que tiene una sustancia para disolverse en otra?',
+      ['Densidad','Solubilidad','Volumen'],1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;"><div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:10px;padding:10px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--g);margin-bottom:5px;">✅ SOLUBLE</div><div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">🍬 Azúcar<br>🧂 Sal</div></div><div style="background:rgba(255,23,68,.1);border:2px solid rgba(255,23,68,.25);border-radius:10px;padding:10px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--r);margin-bottom:5px;">❌ INSOLUBLE</div><div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">🪵 Madera<br>🏖️ Arena</div></div></div><div style="background:rgba(0,0,0,.25);border-radius:8px;padding:9px 12px;font-size:13px;font-weight:800;color:white;">🍋 Limonada = azúcar + agua <span style="color:var(--g);">→ solubilidad!</span></div>'),
+    slide('💪','Fuerza y Movimiento','La _______ es aquello que puede mover un objeto, detenerlo, cambiar su dirección o deformarlo.',
+      ['Energía','Fuerza','Masa'],1,
+      '<div style="font-size:13px;font-weight:800;color:white;line-height:1.8;margin-bottom:8px;">La <span style="color:var(--sci);">FUERZA</span> puede: ➡️ <span style="color:var(--y);">Mover</span> ⏹️ <span style="color:var(--y);">Detener</span> ↩️ <span style="color:var(--y);">Cambiar dirección</span> 🥫 <span style="color:var(--y);">Deformar</span></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;"><div style="background:rgba(105,240,174,.1);border:1px solid rgba(105,240,174,.3);border-radius:8px;padding:8px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:4px;">🏃 TRAYECTORIA</div><div style="font-size:12px;color:white;font-weight:700;">Camino que recorre un objeto al moverse</div></div><div style="background:rgba(105,240,174,.1);border:1px solid rgba(105,240,174,.3);border-radius:8px;padding:8px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--sci);margin-bottom:4px;">🔨 DEFORMACIÓN</div><div style="font-size:12px;color:white;font-weight:700;">Cambio en la forma por una fuerza</div></div></div>'),
+    slide('🌍','Movimientos de la Tierra','¿Qué fenómeno provoca el movimiento de ROTACIÓN de la Tierra?',
+      ['Las estaciones del año','El día y la noche','Los eclipses'],1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="background:rgba(255,214,0,.1);border:2px solid rgba(255,214,0,.3);border-radius:10px;padding:10px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--y);margin-bottom:5px;">🌀 ROTACIÓN</div><div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">Gira sobre su eje<br>⏱️ 24 horas<br>→ <span style="color:var(--y);">DÍA y NOCHE ☀️🌙</span></div></div><div style="background:rgba(255,214,0,.1);border:2px solid rgba(255,214,0,.3);border-radius:10px;padding:10px;"><div style="font-family:Courier New,monospace;font-size:9px;color:var(--y);margin-bottom:5px;">☀️ TRASLACIÓN</div><div style="font-size:13px;color:white;font-weight:800;line-height:1.7;">Viaja alrededor del Sol<br>📅 365 días<br>→ <span style="color:var(--y);">4 ESTACIONES 🌸☀️🍂❄️</span></div></div></div>'),
+    slide('🌙','Fases de la Luna','¿Cuántas fases tiene la Luna durante su ciclo completo?',
+      ['Ocho','Tres','Una'],0,
+      '<div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:10px;">'+
+      [{m:'🌑',n:'Nueva'},{m:'🌒',n:'Creciente'},{m:'🌓',n:'C. Creciente'},{m:'🌔',n:'Gibosa C.'},{m:'🌕',n:'Llena'},{m:'🌖',n:'Gibosa M.'},{m:'🌗',n:'C. Menguante'},{m:'🌘',n:'Menguante'}].map(function(f){
+        return '<div style="text-align:center;background:rgba(0,0,0,.3);border-radius:8px;padding:5px 6px;"><div style="font-size:24px;">'+f.m+'</div><div style="font-size:8px;color:rgba(255,255,255,.5);margin-top:2px;">'+f.n+'</div></div>';
+      }).join('')+
+      '</div><div style="background:rgba(105,240,174,.1);border:2px solid rgba(105,240,174,.25);border-radius:8px;padding:9px;text-align:center;font-size:14px;font-weight:900;color:white;">🌙 <span style="color:var(--sci);">8 FASES</span> en el ciclo lunar</div>'),
+    slide('📏','Longitud y Masa','La _______ es la distancia que hay entre dos puntos.',
+      ['Masa','Longitud','Velocidad'],1,
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:30px;margin-bottom:5px;">📏</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin-bottom:4px;">LONGITUD</div><div style="font-size:13px;color:white;font-weight:800;line-height:1.6;">Distancia entre 2 puntos<br><span style="color:var(--y);">Se mide en METROS</span></div></div><div style="background:rgba(105,240,174,.12);border:2px solid var(--sci);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:30px;margin-bottom:5px;">⚖️</div><div style="font-family:Courier New,monospace;font-size:10px;color:var(--sci);margin-bottom:4px;">MASA</div><div style="font-size:13px;color:white;font-weight:800;line-height:1.6;">Cantidad de materia<br><span style="color:var(--y);">1 kg = 1,000 g</span></div></div></div>'),
+  ];
+}
+
+function buildEngMiniClass() {
+  var countries = [
+    {key:'australia',name:'AUSTRALIA'},{key:'egypt',name:'EGYPT'},
+    {key:'mexico',name:'MEXICO'},{key:'china',name:'CHINA'},
+    {key:'spain',name:'SPAIN'},{key:'brazil',name:'BRAZIL'},
+    {key:'argentina',name:'ARGENTINA'},{key:'chile',name:'CHILE'},
+    {key:'india',name:'INDIA'},{key:'turkey',name:'TURKEY'}
+  ];
+  var weatherWords = [
+    {em:'🌫️',w:'FOGGY',d:'Cannot see far — thick air near the ground'},
+    {em:'⛈️',w:'THUNDERSTORM',d:'Lightning + thunder + heavy rain'},
+    {em:'🌧️',w:'RAINY',d:'Water falling from the sky'},
+    {em:'💨',w:'WINDY',d:'Strong air movement'},
+    {em:'☁️',w:'CLOUDY',d:'Grey sky full of clouds — no rain yet'}
+  ];
+  function row(type,text){
+    var colors={pos:'rgba(0,230,118,.12)|rgba(0,230,118,.3)',neg:'rgba(255,23,68,.1)|rgba(255,23,68,.25)',blue:'rgba(100,181,246,.1)|rgba(100,181,246,.3)'};
+    var c=(colors[type]||colors.blue).split('|');
+    return '<div style="background:'+c[0]+';border:2px solid '+c[1]+';border-radius:10px;padding:10px 12px;font-size:13px;font-weight:800;color:white;line-height:1.7;margin-bottom:6px;">'+text+'</div>';
+  }
+  return [
+    // Slide 1: Countries
+    {cardType:'grammar',concept:'Countries Vocabulary',emoji:'🌍',
+     html:(function(){
+       var rows=countries.map(function(c){
+         var letters=c.name.split('').map(function(l){return '<div style="min-width:16px;height:20px;background:rgba(100,181,246,.25);border:1px solid var(--eng);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--eng);padding:0 2px;">'+l+'</div>';}).join('');
+         var flagImg=FLAG_IMGS&&FLAG_IMGS[c.key]?'<img src="'+FLAG_IMGS[c.key]+'" style="width:48px;height:32px;object-fit:cover;border-radius:4px;border:1px solid rgba(255,255,255,.2);flex-shrink:0;">':'<span style="font-size:24px;">🏳️</span>';
+         return '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:10px;padding:9px;display:flex;align-items:center;gap:9px;">'+flagImg+'<div style="flex:1;"><div style="font-family:Courier New,monospace;font-size:12px;font-weight:900;color:white;margin-bottom:4px;">'+c.name+'</div><div style="display:flex;gap:2px;flex-wrap:wrap;">'+letters+'</div></div></div>';
+       }).join('');
+       return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%;">'+rows+'</div>';
+     })()},
+    // Slide 2: Weather
+    {cardType:'grammar',concept:'Weather Words',emoji:'⛅',
+     html:'<div style="display:flex;flex-direction:column;gap:8px;width:100%;">'+
+       weatherWords.map(function(item){
+         var letters=item.w.split('').map(function(l){return '<div style="width:18px;height:20px;background:rgba(100,181,246,.2);border:1px solid var(--eng);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--eng);">'+l+'</div>';}).join('');
+         return '<div style="background:rgba(100,181,246,.1);border:2px solid rgba(100,181,246,.3);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:11px;"><span style="font-size:34px;flex-shrink:0;">'+item.em+'</span><div style="flex:1;"><div style="font-family:Courier New,monospace;font-size:14px;font-weight:900;color:white;margin-bottom:5px;">'+item.w+'</div><div style="display:flex;gap:2px;flex-wrap:wrap;margin-bottom:4px;">'+letters+'</div><div style="font-size:11px;color:rgba(255,255,255,.6);font-weight:700;">'+item.d+'</div></div></div>';
+       }).join('')+'</div>'},
+    // Slide 3: Going To
+    {cardType:'grammar',concept:'Going To — Future',emoji:'🔮',
+     html:'<div style="display:flex;flex-direction:column;gap:8px;width:100%;">'+
+       '<div style="background:rgba(0,0,0,.3);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:11px;color:rgba(255,255,255,.45);font-family:Courier New,monospace;margin-bottom:6px;">FORMULA</div><div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;"><span style="background:rgba(100,181,246,.2);border:2px solid var(--eng);border-radius:7px;padding:6px 9px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--eng);">Subject</span><span style="color:rgba(255,255,255,.3);font-size:16px;padding:3px;">+</span><span style="background:rgba(255,214,0,.2);border:2px solid var(--y);border-radius:7px;padding:6px 9px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--y);">AM/IS/ARE</span><span style="color:rgba(255,255,255,.3);font-size:16px;padding:3px;">+</span><span style="background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:7px;padding:6px 9px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--g);">GOING TO</span><span style="color:rgba(255,255,255,.3);font-size:16px;padding:3px;">+</span><span style="background:rgba(213,0,249,.2);border:2px solid var(--pu);border-radius:7px;padding:6px 9px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--pu);">verb</span></div></div>'+
+       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;"><div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:10px;color:rgba(255,255,255,.45);margin-bottom:3px;">I</div><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">AM</div></div><div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:10px;color:rgba(255,255,255,.45);margin-bottom:3px;">He/She/It</div><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">IS</div></div><div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:8px;padding:8px;text-align:center;"><div style="font-size:10px;color:rgba(255,255,255,.45);margin-bottom:3px;">We/You/They</div><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">ARE</div></div></div>'+
+       row('pos','I <span style="color:var(--y);font-family:Courier New,monospace;">AM</span> going to study. / She <span style="color:var(--y);font-family:Courier New,monospace;">IS</span> going to dance.')+
+       row('neg','I am <span style="color:#ff8a80;font-family:Courier New,monospace;">NOT</span> going to study. / She is <span style="color:#ff8a80;font-family:Courier New,monospace;">NOT</span> going to dance.')+
+       row('blue','<span style="color:var(--eng);font-family:Courier New,monospace;">ARE</span> you going to swim? Yes, I <span style="color:var(--y);">AM</span>. / No, I am <span style="color:#ff8a80;">NOT</span>.')+
+       '</div>'},
+    // Slide 4: Past Tense
+    {cardType:'grammar',concept:'Past Tense Verbs',emoji:'📝',
+     html:'<div style="display:flex;flex-direction:column;gap:7px;width:100%;">'+
+       '<div style="background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.2);border-radius:6px;padding:5px 9px;font-size:10px;font-family:Courier New,monospace;color:var(--y);">⚠️ IRREGULAR — they change completely!</div>'+
+       [{inf:'GIVE',past:'GAVE',es:'dar'},{inf:'GO',past:'WENT',es:'ir'},{inf:'WAKE UP',past:'WOKE UP',es:'despertar'},{inf:'SAY',past:'SAID',es:'decir'},{inf:'FEEL',past:'FELT',es:'sentir'},{inf:'SEE',past:'SAW',es:'ver'},{inf:'FLY',past:'FLEW',es:'volar'}].map(function(v){
+         return '<div style="display:grid;grid-template-columns:1fr auto 1fr auto;align-items:center;gap:5px;background:rgba(100,181,246,.08);border:1px solid rgba(100,181,246,.2);border-radius:8px;padding:7px 10px;"><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--eng);">'+v.inf+'</div><div style="color:rgba(255,255,255,.3);">→</div><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">'+v.past+'</div><div style="font-size:11px;color:rgba(255,255,255,.4);">('+v.es+')</div></div>';
+       }).join('')+
+       '<div style="background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.2);border-radius:6px;padding:5px 9px;font-size:10px;font-family:Courier New,monospace;color:var(--y);">✅ REGULAR — just add -ED!</div>'+
+       [{inf:'VISIT',past:'VISITED',es:'visitar'},{inf:'PLAY',past:'PLAYED',es:'jugar'},{inf:'OPEN',past:'OPENED',es:'abrir'},{inf:'STAY',past:'STAYED',es:'quedarse'},{inf:'CALL',past:'CALLED',es:'llamar'}].map(function(v){
+         return '<div style="display:grid;grid-template-columns:1fr auto 1fr auto;align-items:center;gap:5px;background:rgba(255,214,0,.07);border:1px solid rgba(255,214,0,.2);border-radius:8px;padding:7px 10px;"><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--y);">'+v.inf+'</div><div style="color:rgba(255,255,255,.3);">→</div><div style="font-family:Courier New,monospace;font-size:13px;font-weight:900;color:var(--g);">'+v.past+'</div><div style="font-size:11px;color:rgba(255,255,255,.4);">('+v.es+')</div></div>';
+       }).join('')+
+       '</div>'},
+    // Slide 5: Simple Past Questions
+    {cardType:'grammar',concept:'Simple Past Questions',emoji:'❓',
+     html:'<div style="display:flex;flex-direction:column;gap:8px;width:100%;">'+
+       '<div style="background:rgba(0,0,0,.3);border-radius:10px;padding:10px;text-align:center;"><div style="font-size:11px;color:rgba(255,255,255,.45);font-family:Courier New,monospace;margin-bottom:6px;">FORMULA</div><div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;"><span style="background:rgba(255,214,0,.2);border:2px solid var(--y);border-radius:7px;padding:6px 10px;font-family:Courier New,monospace;font-size:14px;font-weight:900;color:var(--y);">DID</span><span style="color:rgba(255,255,255,.3);font-size:16px;padding:3px;">+</span><span style="background:rgba(100,181,246,.2);border:2px solid var(--eng);border-radius:7px;padding:6px 9px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--eng);">subject</span><span style="color:rgba(255,255,255,.3);font-size:16px;padding:3px;">+</span><span style="background:rgba(0,230,118,.2);border:2px solid var(--g);border-radius:7px;padding:6px 9px;font-family:Courier New,monospace;font-size:11px;font-weight:900;color:var(--g);">base verb</span><span style="color:var(--eng);font-size:20px;padding:2px;">?</span></div></div>'+
+       row('blue','<span style="color:var(--y);font-family:Courier New,monospace;">DID</span> you play soccer? / <span style="color:var(--y);font-family:Courier New,monospace;">DID</span> she call you?')+
+       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+       '<div style="background:rgba(0,230,118,.12);border:2px solid rgba(0,230,118,.3);border-radius:10px;padding:10px;"><div style="font-size:10px;color:var(--g);font-family:Courier New,monospace;margin-bottom:5px;">✅ YES</div><div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">Yes, I <span style="color:var(--y);font-family:Courier New,monospace;">DID</span>.<br>Yes, she <span style="color:var(--y);font-family:Courier New,monospace;">DID</span>.</div></div>'+
+       '<div style="background:rgba(255,23,68,.1);border:2px solid rgba(255,23,68,.25);border-radius:10px;padding:10px;"><div style="font-size:10px;color:var(--r);font-family:Courier New,monospace;margin-bottom:5px;">❌ NO</div><div style="font-size:13px;font-weight:800;color:white;line-height:1.8;">No, I <span style="color:#ff8a80;font-family:Courier New,monospace;">DID NOT</span>.<br>No, she <span style="color:#ff8a80;font-family:Courier New,monospace;">DID NOT</span>.</div></div></div>'+
+       '<div style="background:rgba(213,0,249,.1);border:2px solid rgba(213,0,249,.3);border-radius:10px;padding:10px;"><div style="font-size:10px;color:var(--pu);font-family:Courier New,monospace;margin-bottom:6px;">🔵 WH QUESTIONS</div><div style="font-size:13px;font-weight:800;color:white;line-height:2."><span style="color:var(--pu);font-family:Courier New,monospace;">What</span> did you have? / <span style="color:var(--pu);font-family:Courier New,monospace;">Where</span> did you go?<br><span style="color:var(--pu);font-family:Courier New,monospace;">Who</span> did you see? / <span style="color:var(--pu);font-family:Courier New,monospace;">How long</span> did you stay?</div></div>'+
+       '</div>'},
+  ];
+}
+
 window.initApp = function() {
   // Build avatar grid immediately
   try { buildAvGrid({}); } catch(e) {}
