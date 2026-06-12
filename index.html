@@ -1375,28 +1375,25 @@ function updSubjScore(subj, coins) {
   save[key] = (save[key]||0) + coins;
 }
 
-window.initApp = async function() {
-  // Show loading while we fetch taken avatars from Firebase
-  var overlay = document.getElementById('loadingOverlay');
-  var loadTxt = overlay ? overlay.querySelector('.loading-txt') : null;
-  if(overlay) { overlay.style.display='flex'; }
-  if(loadTxt) loadTxt.textContent = 'CARGANDO PERSONAJES...';
-
-  // Build grid immediately with no taken avatars (so screen shows fast)
-  buildAvGrid({});
-
-  // Load taken avatars from Firebase
-  var taken = {};
-  try {
-    taken = await loadTakenAvatarsFromDB();
-  } catch(e) { taken = {}; }
-
-  // Rebuild grid with taken avatars locked
-  buildAvGrid(taken);
-
-  // Hide loading and show home
-  if(overlay) overlay.style.display = 'none';
-  show('home');
+window.initApp = function() {
+  // Build avatar grid immediately
+  try { buildAvGrid({}); } catch(e) {}
+  // Show home screen right away
+  try { show('home'); } catch(e) {}
+  // Load taken avatars in background (non-blocking)
+  setTimeout(function(){
+    try {
+      var taken = {};
+      for(var i=0; i<localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if(k && k.startsWith('ah_')) {
+          var d = JSON.parse(localStorage.getItem(k)||'{}');
+          if(d.name && d.avIdx !== undefined) taken[d.name] = parseInt(d.avIdx);
+        }
+      }
+      buildAvGrid(taken);
+    } catch(e) {}
+  }, 100);
 };
 
 function genBg() {
@@ -2193,9 +2190,20 @@ function playFanfare(){
 document.addEventListener('DOMContentLoaded', function() {
   try { genBg(); } catch(e) {}
   try { window.initApp(); } catch(e) {
-    // Fallback: show home screen directly
-    document.getElementById('s-home').classList.add('active');
-    buildAvGrid({});
+    try { document.getElementById('s-home').classList.add('active'); } catch(e2) {}
+    try { buildAvGrid({}); } catch(e2) {}
+  }
+});
+
+// Extra safety: if page loads but initApp didn't run
+window.addEventListener('load', function() {
+  var grid = document.getElementById('avGrid');
+  var home = document.getElementById('s-home');
+  if(grid && grid.children.length === 0) {
+    try { buildAvGrid({}); } catch(e) {}
+  }
+  if(home && !home.classList.contains('active')) {
+    try { show('home'); } catch(e) {}
   }
 });
 </script>
