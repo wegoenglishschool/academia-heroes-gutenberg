@@ -2237,21 +2237,30 @@ function checkFill() {
   if(answered) return;
   var inp = document.getElementById('fillIn'); if(!inp) return;
   var v = inp.value.trim();
+  // ── EMPTY CHECK: never allow blank answers ──
+  if(!v || v.length === 0) {
+    inp.classList.add('err');
+    inp.placeholder = '¡Escribe tu respuesta primero!';
+    setTimeout(function(){ inp.classList.remove('err'); inp.placeholder = 'Escribe tu respuesta...'; }, 1200);
+    return;
+  }
   var q = cqs[cq];
   function norm(s){ return s.toLowerCase().replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').trim(); }
   var correctFull = norm(q.ans);
   var vNorm = norm(v);
-  // Check exact match first
   var allAns = [q.ans].concat(q.altAns||[]).map(function(a){ return norm(a); });
+  // Check 1: exact match against any accepted answer
   var ok = allAns.indexOf(vNorm) >= 0;
-  // Also check if user typed the missing letters that complete the full answer
-  if(!ok && correctFull.indexOf(vNorm) >= 0 && vNorm.length >= 1) {
-    ok = true; // partial correct letters typed
-  }
-  // Also check if full word typed matches (even if question only asked for missing letters)
+  // Check 2: user typed the FULL correct word (even if question shows blanks)
   if(!ok) {
+    ok = allAns.indexOf(vNorm) >= 0 || allAns.some(function(a){ return a === vNorm; });
+  }
+  // Check 3: user typed the missing letters AND they are at least 2 chars
+  // Only allow partial if the partial exactly matches what's missing in the blank
+  if(!ok && vNorm.length >= 2) {
     allAns.forEach(function(a){
-      if(correctFull.indexOf(norm(v))>=0 || norm(v).indexOf(a)>=0 || a.indexOf(vNorm)>=0) ok=true;
+      // partial must be a significant portion - at least half the answer
+      if(a.indexOf(vNorm) >= 0 && vNorm.length >= Math.ceil(a.length * 0.4)) ok = true;
     });
   }
   answered=true; inp.disabled=true; inp.classList.add(ok?'correct':'wrong');
